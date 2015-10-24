@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="474f53d988564e2fa10b8dc6548bd0f9" Name="Diagram1" >
+        <EntityTypeShape EntityType="EFModel.Cart" Width="1.5" PointX="5.75" PointY="1.125" />
+        <EntityTypeShape EntityType="EFModel.User" Width="1.5" PointX="8" PointY="1" />
+        <AssociationConnector Association="EFModel.CartUser" />
+        <EntityTypeShape EntityType="EFModel.CartItem" Width="1.5" PointX="5" PointY="4.25" />
+        <EntityTypeShape EntityType="EFModel.Product" Width="1.5" PointX="8" PointY="4.125" />
+        <AssociationConnector Association="EFModel.CartItemCart" />
+        <AssociationConnector Association="EFModel.CartItemProduct" />
+        <EntityTypeShape EntityType="EFModel.Post" Width="1.5" PointX="10.875" PointY="1" />
+        <EntityTypeShape EntityType="EFModel.Order" Width="1.5" PointX="1.75" PointY="4.25" />
+        <AssociationConnector Association="EFModel.OrderCart" />
+        <EntityTypeShape EntityType="EFModel.Bill" Width="1.5" PointX="1.875" PointY="0.875" />
+        <AssociationConnector Association="EFModel.BillCart" />
+        <AssociationConnector Association="EFModel.BillOrder" />
+        <EntityTypeShape EntityType="EFModel.Image" Width="1.5" PointX="11.125" PointY="4.125" />
+        <AssociationConnector Association="EFModel.ProductImage" />
+        <EntityTypeShape EntityType="EFModel.Comment" Width="1.5" PointX="14.25" PointY="1" />
+        <AssociationConnector Association="EFModel.CommentUser" />
+        <AssociationConnector Association="EFModel.OrderUser" />
+        <AssociationConnector Association="EFModel.PostComment" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

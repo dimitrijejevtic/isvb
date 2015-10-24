@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EFModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="EFModelStoreContainer">
+    <EntitySet Name="Carts" EntityType="EFModel.Store.Carts" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="EFModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CartItems" EntityType="EFModel.Store.CartItems" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Products" EntityType="EFModel.Store.Products" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="CartUser" Association="EFModel.Store.CartUser">
+      <End Role="Cart" EntitySet="Carts" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="CartItemCart" Association="EFModel.Store.CartItemCart">
+      <End Role="CartItem" EntitySet="CartItems" />
+      <End Role="Cart" EntitySet="Carts" />
+    </AssociationSet>
+    <AssociationSet Name="CartItemProduct" Association="EFModel.Store.CartItemProduct">
+      <End Role="CartItem" EntitySet="CartItems" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Carts">
+    <Key>
+      <PropertyRef Name="CartId" />
+    </Key>
+    <Property Name="CartId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="User_UserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CartItems">
+    <Key>
+      <PropertyRef Name="CartItemId" />
+    </Key>
+    <Property Name="CartItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="Cart_CartId" Type="int" Nullable="false" />
+    <Property Name="Product_ProductId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="ProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="LatName" Type="nvarchar" Nullable="false" MaxLength="250" />
+    <Property Name="Price" Type="float" Nullable="false" />
+  </EntityType>
+  <Association Name="CartUser">
+    <End Role="Cart" Type="EFModel.Store.Carts" Multiplicity="*" />
+    <End Role="User" Type="EFModel.Store.Users" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="User_UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CartItemCart">
+    <End Role="CartItem" Type="EFModel.Store.CartItems" Multiplicity="*" />
+    <End Role="Cart" Type="EFModel.Store.Carts" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Cart">
+        <PropertyRef Name="CartId" />
+      </Principal>
+      <Dependent Role="CartItem">
+        <PropertyRef Name="Cart_CartId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CartItemProduct">
+    <End Role="CartItem" Type="EFModel.Store.CartItems" Multiplicity="*" />
+    <End Role="Product" Type="EFModel.Store.Products" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="CartItem">
+        <PropertyRef Name="Product_ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

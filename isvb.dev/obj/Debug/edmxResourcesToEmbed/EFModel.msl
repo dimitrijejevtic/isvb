@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EFModelStoreContainer" CdmEntityContainer="EFModelContainer">
+    <EntitySetMapping Name="Carts">
+      <EntityTypeMapping TypeName="IsTypeOf(EFModel.Cart)">
+        <MappingFragment StoreEntitySet="Carts">
+          <ScalarProperty Name="CartId" ColumnName="CartId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(EFModel.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CartItems">
+      <EntityTypeMapping TypeName="IsTypeOf(EFModel.CartItem)">
+        <MappingFragment StoreEntitySet="CartItems">
+          <ScalarProperty Name="CartItemId" ColumnName="CartItemId" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="IsTypeOf(EFModel.Product)">
+        <MappingFragment StoreEntitySet="Products">
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="LatName" ColumnName="LatName" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="CartUser" TypeName="EFModel.CartUser" StoreEntitySet="Carts">
+      <EndProperty Name="User">
+        <ScalarProperty Name="UserId" ColumnName="User_UserId" />
+      </EndProperty>
+      <EndProperty Name="Cart">
+        <ScalarProperty Name="CartId" ColumnName="CartId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CartItemCart" TypeName="EFModel.CartItemCart" StoreEntitySet="CartItems">
+      <EndProperty Name="Cart">
+        <ScalarProperty Name="CartId" ColumnName="Cart_CartId" />
+      </EndProperty>
+      <EndProperty Name="CartItem">
+        <ScalarProperty Name="CartItemId" ColumnName="CartItemId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CartItemProduct" TypeName="EFModel.CartItemProduct" StoreEntitySet="CartItems">
+      <EndProperty Name="Product">
+        <ScalarProperty Name="ProductId" ColumnName="Product_ProductId" />
+      </EndProperty>
+      <EndProperty Name="CartItem">
+        <ScalarProperty Name="CartItemId" ColumnName="CartItemId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
