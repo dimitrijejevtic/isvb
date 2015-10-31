@@ -12,6 +12,7 @@
       <EntityTypeMapping TypeName="IsTypeOf(EFModel.User)">
         <MappingFragment StoreEntitySet="Users">
           <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -30,6 +31,49 @@
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="LatName" ColumnName="LatName" />
           <ScalarProperty Name="Price" ColumnName="Price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Posts">
+      <EntityTypeMapping TypeName="IsTypeOf(EFModel.Post)">
+        <MappingFragment StoreEntitySet="Posts">
+          <ScalarProperty Name="PostId" ColumnName="PostId" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="IsTypeOf(EFModel.Order)">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Bills">
+      <EntityTypeMapping TypeName="IsTypeOf(EFModel.Bill)">
+        <MappingFragment StoreEntitySet="Bills">
+          <ScalarProperty Name="BillId" ColumnName="BillId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Images">
+      <EntityTypeMapping TypeName="IsTypeOf(EFModel.Image)">
+        <MappingFragment StoreEntitySet="Images">
+          <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+          <ScalarProperty Name="URI" ColumnName="URI" />
+          <ScalarProperty Name="Alt" ColumnName="Alt" />
+          <ScalarProperty Name="ProductProductId" ColumnName="ProductProductId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Comments">
+      <EntityTypeMapping TypeName="IsTypeOf(EFModel.Comment)">
+        <MappingFragment StoreEntitySet="Comments">
+          <ScalarProperty Name="ComentId" ColumnName="ComentId" />
+          <ScalarProperty Name="PostPostId" ColumnName="PostPostId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -55,6 +99,46 @@
       </EndProperty>
       <EndProperty Name="CartItem">
         <ScalarProperty Name="CartItemId" ColumnName="CartItemId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="OrderCart" TypeName="EFModel.OrderCart" StoreEntitySet="Orders">
+      <EndProperty Name="Cart">
+        <ScalarProperty Name="CartId" ColumnName="Cart_CartId" />
+      </EndProperty>
+      <EndProperty Name="Order">
+        <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="BillCart" TypeName="EFModel.BillCart" StoreEntitySet="Bills">
+      <EndProperty Name="Cart">
+        <ScalarProperty Name="CartId" ColumnName="Cart_CartId" />
+      </EndProperty>
+      <EndProperty Name="Bill">
+        <ScalarProperty Name="BillId" ColumnName="BillId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="BillOrder" TypeName="EFModel.BillOrder" StoreEntitySet="Bills">
+      <EndProperty Name="Order">
+        <ScalarProperty Name="OrderId" ColumnName="Order_OrderId" />
+      </EndProperty>
+      <EndProperty Name="Bill">
+        <ScalarProperty Name="BillId" ColumnName="BillId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CommentUser" TypeName="EFModel.CommentUser" StoreEntitySet="Comments">
+      <EndProperty Name="User">
+        <ScalarProperty Name="UserId" ColumnName="User_UserId" />
+      </EndProperty>
+      <EndProperty Name="Comment">
+        <ScalarProperty Name="ComentId" ColumnName="ComentId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="OrderUser" TypeName="EFModel.OrderUser" StoreEntitySet="Orders">
+      <EndProperty Name="User">
+        <ScalarProperty Name="UserId" ColumnName="User_UserId" />
+      </EndProperty>
+      <EndProperty Name="Order">
+        <ScalarProperty Name="OrderId" ColumnName="OrderId" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

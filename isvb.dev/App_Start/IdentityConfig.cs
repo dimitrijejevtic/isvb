@@ -105,5 +105,6 @@ namespace isvb.dev
         {
             return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
         }
+        
     }
 }

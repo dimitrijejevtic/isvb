@@ -15,6 +15,7 @@ namespace isvb.dev.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private EFModelContainer myContext = new EFModelContainer();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -51,9 +52,11 @@ namespace isvb.dev.Controllers
                 _userManager = value;
             }
         }
-
+        
         //
         // GET: /Account/Login
+
+           
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -156,7 +159,9 @@ namespace isvb.dev.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    var myUser = new User { Email = user.Email };
+                    myContext.Users.Add(myUser);
+                    myContext.SaveChanges();
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);

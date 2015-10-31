@@ -17,7 +17,6 @@
         <th>
             @Html.DisplayNameFor(model => model.LatName)
         </th>
-
         <th>
             @Html.DisplayNameFor(model => model.Price)
         </th>
@@ -32,14 +31,16 @@
         <td>
             @Html.DisplayFor(modelItem => item.LatName)
         </td>
-
         <td>
             @Html.DisplayFor(modelItem => item.Price)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProductId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ProductId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ProductId })
+            @if (User.IsInRole("Administrator") || User.IsInRole("Owner")){
+            @Html.ActionLink("Edit", "Edit", new { id = item.ProductId })  
+            @Html.ActionLink("Details", "Details", new { id = item.ProductId }) 
+            @Html.ActionLink("Delete", "Delete", new { id = item.ProductId })} else {@Html.ActionLink("Details", "Details", new { id = item.ProductId }) }
+
+                   
         </td>
     </tr>
 }

@@ -17,6 +17,39 @@
       <End Role="CartItem" EntitySet="CartItems" />
       <End Role="Product" EntitySet="Products" />
     </AssociationSet>
+    <EntitySet Name="Posts" EntityType="EFModel.Post" />
+    <EntitySet Name="Orders" EntityType="EFModel.Order" />
+    <AssociationSet Name="OrderCart" Association="EFModel.OrderCart">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="Cart" EntitySet="Carts" />
+    </AssociationSet>
+    <EntitySet Name="Bills" EntityType="EFModel.Bill" />
+    <AssociationSet Name="BillCart" Association="EFModel.BillCart">
+      <End Role="Bill" EntitySet="Bills" />
+      <End Role="Cart" EntitySet="Carts" />
+    </AssociationSet>
+    <AssociationSet Name="BillOrder" Association="EFModel.BillOrder">
+      <End Role="Bill" EntitySet="Bills" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <EntitySet Name="Images" EntityType="EFModel.Image" />
+    <AssociationSet Name="ProductImage" Association="EFModel.ProductImage">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="Image" EntitySet="Images" />
+    </AssociationSet>
+    <EntitySet Name="Comments" EntityType="EFModel.Comment" />
+    <AssociationSet Name="CommentUser" Association="EFModel.CommentUser">
+      <End Role="Comment" EntitySet="Comments" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="OrderUser" Association="EFModel.OrderUser">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="PostComment" Association="EFModel.PostComment">
+      <End Role="Post" EntitySet="Posts" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Cart">
     <Key>
@@ -25,6 +58,8 @@
     <Property Name="CartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <NavigationProperty Name="User" Relationship="EFModel.CartUser" FromRole="Cart" ToRole="User" />
     <NavigationProperty Name="CartItems" Relationship="EFModel.CartItemCart" FromRole="Cart" ToRole="CartItem" />
+    <NavigationProperty Name="Order" Relationship="EFModel.OrderCart" FromRole="Cart" ToRole="Order" />
+    <NavigationProperty Name="Bill" Relationship="EFModel.BillCart" FromRole="Cart" ToRole="Bill" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -32,6 +67,9 @@
     </Key>
     <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <NavigationProperty Name="Cart" Relationship="EFModel.CartUser" FromRole="User" ToRole="Cart" />
+    <Property Name="Email" Type="String" Nullable="false" />
+    <NavigationProperty Name="Comments" Relationship="EFModel.CommentUser" FromRole="User" ToRole="Comment" />
+    <NavigationProperty Name="Orders" Relationship="EFModel.OrderUser" FromRole="User" ToRole="Order" />
   </EntityType>
   <Association Name="CartUser">
     <End Type="EFModel.Cart" Role="Cart" Multiplicity="*" />
@@ -55,6 +93,7 @@
     <Property Name="LatName" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
     <NavigationProperty Name="CartItem" Relationship="EFModel.CartItemProduct" FromRole="Product" ToRole="CartItem" />
     <Property Name="Price" Type="Double" Nullable="false" />
+    <NavigationProperty Name="Images" Relationship="EFModel.ProductImage" FromRole="Product" ToRole="Image" />
   </EntityType>
   <Association Name="CartItemCart">
     <End Type="EFModel.CartItem" Role="CartItem" Multiplicity="*" />
@@ -63,5 +102,96 @@
   <Association Name="CartItemProduct">
     <End Type="EFModel.CartItem" Role="CartItem" Multiplicity="*" />
     <End Type="EFModel.Product" Role="Product" Multiplicity="1" />
+  </Association>
+  <EntityType Name="Post">
+    <Key>
+      <PropertyRef Name="PostId" />
+    </Key>
+    <Property Name="PostId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Text" Type="String" Nullable="false" MaxLength="300" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="50" />
+    <Property Name="Timestamp" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="Comments" Relationship="EFModel.PostComment" FromRole="Post" ToRole="Comment" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="OrderId" />
+    </Key>
+    <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Timestamp" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="Cart" Relationship="EFModel.OrderCart" FromRole="Order" ToRole="Cart" />
+    <NavigationProperty Name="Bill" Relationship="EFModel.BillOrder" FromRole="Order" ToRole="Bill" />
+    <NavigationProperty Name="User" Relationship="EFModel.OrderUser" FromRole="Order" ToRole="User" />
+  </EntityType>
+  <Association Name="OrderCart">
+    <End Type="EFModel.Order" Role="Order" Multiplicity="1" />
+    <End Type="EFModel.Cart" Role="Cart" Multiplicity="1" />
+  </Association>
+  <EntityType Name="Bill">
+    <Key>
+      <PropertyRef Name="BillId" />
+    </Key>
+    <Property Name="BillId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Cart" Relationship="EFModel.BillCart" FromRole="Bill" ToRole="Cart" />
+    <NavigationProperty Name="Order" Relationship="EFModel.BillOrder" FromRole="Bill" ToRole="Order" />
+  </EntityType>
+  <Association Name="BillCart">
+    <End Type="EFModel.Bill" Role="Bill" Multiplicity="1" />
+    <End Type="EFModel.Cart" Role="Cart" Multiplicity="1" />
+  </Association>
+  <Association Name="BillOrder">
+    <End Type="EFModel.Bill" Role="Bill" Multiplicity="1" />
+    <End Type="EFModel.Order" Role="Order" Multiplicity="1" />
+  </Association>
+  <EntityType Name="Image">
+    <Key>
+      <PropertyRef Name="ImageId" />
+    </Key>
+    <Property Name="ImageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="URI" Type="String" Nullable="false" />
+    <Property Name="Alt" Type="String" Nullable="false" />
+    <NavigationProperty Name="Product" Relationship="EFModel.ProductImage" FromRole="Image" ToRole="Product" />
+    <Property Name="ProductProductId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="ProductImage">
+    <End Type="EFModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="EFModel.Image" Role="Image" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="Image">
+        <PropertyRef Name="ProductProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="ComentId" />
+    </Key>
+    <Property Name="ComentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="User" Relationship="EFModel.CommentUser" FromRole="Comment" ToRole="User" />
+    <NavigationProperty Name="Post" Relationship="EFModel.PostComment" FromRole="Comment" ToRole="Post" />
+    <Property Name="PostPostId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="CommentUser">
+    <End Type="EFModel.Comment" Role="Comment" Multiplicity="*" />
+    <End Type="EFModel.User" Role="User" Multiplicity="1" />
+  </Association>
+  <Association Name="OrderUser">
+    <End Type="EFModel.Order" Role="Order" Multiplicity="*" />
+    <End Type="EFModel.User" Role="User" Multiplicity="1" />
+  </Association>
+  <Association Name="PostComment">
+    <End Type="EFModel.Post" Role="Post" Multiplicity="1" />
+    <End Type="EFModel.Comment" Role="Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Post">
+        <PropertyRef Name="PostId" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="PostPostId" />
+      </Dependent>
+    </ReferentialConstraint>
   </Association>
 </Schema>

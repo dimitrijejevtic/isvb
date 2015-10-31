@@ -5,6 +5,11 @@
     <EntitySet Name="Users" EntityType="EFModel.Store.Users" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="CartItems" EntityType="EFModel.Store.CartItems" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Products" EntityType="EFModel.Store.Products" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Posts" EntityType="EFModel.Store.Posts" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Orders" EntityType="EFModel.Store.Orders" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Bills" EntityType="EFModel.Store.Bills" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Images" EntityType="EFModel.Store.Images" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Comments" EntityType="EFModel.Store.Comments" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="CartUser" Association="EFModel.Store.CartUser">
       <End Role="Cart" EntitySet="Carts" />
       <End Role="User" EntitySet="Users" />
@@ -16,6 +21,34 @@
     <AssociationSet Name="CartItemProduct" Association="EFModel.Store.CartItemProduct">
       <End Role="CartItem" EntitySet="CartItems" />
       <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="OrderCart" Association="EFModel.Store.OrderCart">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="Cart" EntitySet="Carts" />
+    </AssociationSet>
+    <AssociationSet Name="BillCart" Association="EFModel.Store.BillCart">
+      <End Role="Bill" EntitySet="Bills" />
+      <End Role="Cart" EntitySet="Carts" />
+    </AssociationSet>
+    <AssociationSet Name="BillOrder" Association="EFModel.Store.BillOrder">
+      <End Role="Bill" EntitySet="Bills" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="ProductImage" Association="EFModel.Store.ProductImage">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="Image" EntitySet="Images" />
+    </AssociationSet>
+    <AssociationSet Name="CommentUser" Association="EFModel.Store.CommentUser">
+      <End Role="Comment" EntitySet="Comments" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="OrderUser" Association="EFModel.Store.OrderUser">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="PostComment" Association="EFModel.Store.PostComment">
+      <End Role="Post" EntitySet="Posts" />
+      <End Role="Comment" EntitySet="Comments" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Carts">
@@ -30,6 +63,7 @@
       <PropertyRef Name="UserId" />
     </Key>
     <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="CartItems">
     <Key>
@@ -48,6 +82,49 @@
     <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="LatName" Type="nvarchar" Nullable="false" MaxLength="250" />
     <Property Name="Price" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Posts">
+    <Key>
+      <PropertyRef Name="PostId" />
+    </Key>
+    <Property Name="PostId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Text" Type="nvarchar" Nullable="false" MaxLength="300" />
+    <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Timestamp" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="OrderId" />
+    </Key>
+    <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Timestamp" Type="datetime" Nullable="false" />
+    <Property Name="Cart_CartId" Type="int" Nullable="false" />
+    <Property Name="User_UserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Bills">
+    <Key>
+      <PropertyRef Name="BillId" />
+    </Key>
+    <Property Name="BillId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Cart_CartId" Type="int" Nullable="false" />
+    <Property Name="Order_OrderId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Images">
+    <Key>
+      <PropertyRef Name="ImageId" />
+    </Key>
+    <Property Name="ImageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="URI" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Alt" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ProductProductId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Comments">
+    <Key>
+      <PropertyRef Name="ComentId" />
+    </Key>
+    <Property Name="ComentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PostPostId" Type="int" Nullable="false" />
+    <Property Name="User_UserId" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="CartUser">
     <End Role="Cart" Type="EFModel.Store.Carts" Multiplicity="*" />
@@ -82,6 +159,90 @@
       </Principal>
       <Dependent Role="CartItem">
         <PropertyRef Name="Product_ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="OrderCart">
+    <End Role="Order" Type="EFModel.Store.Orders" Multiplicity="*" />
+    <End Role="Cart" Type="EFModel.Store.Carts" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Cart">
+        <PropertyRef Name="CartId" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="Cart_CartId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BillCart">
+    <End Role="Bill" Type="EFModel.Store.Bills" Multiplicity="*" />
+    <End Role="Cart" Type="EFModel.Store.Carts" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Cart">
+        <PropertyRef Name="CartId" />
+      </Principal>
+      <Dependent Role="Bill">
+        <PropertyRef Name="Cart_CartId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BillOrder">
+    <End Role="Bill" Type="EFModel.Store.Bills" Multiplicity="*" />
+    <End Role="Order" Type="EFModel.Store.Orders" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="OrderId" />
+      </Principal>
+      <Dependent Role="Bill">
+        <PropertyRef Name="Order_OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProductImage">
+    <End Role="Product" Type="EFModel.Store.Products" Multiplicity="1" />
+    <End Role="Image" Type="EFModel.Store.Images" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="Image">
+        <PropertyRef Name="ProductProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CommentUser">
+    <End Role="Comment" Type="EFModel.Store.Comments" Multiplicity="*" />
+    <End Role="User" Type="EFModel.Store.Users" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="User_UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="OrderUser">
+    <End Role="Order" Type="EFModel.Store.Orders" Multiplicity="*" />
+    <End Role="User" Type="EFModel.Store.Users" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="User_UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PostComment">
+    <End Role="Post" Type="EFModel.Store.Posts" Multiplicity="1" />
+    <End Role="Comment" Type="EFModel.Store.Comments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Post">
+        <PropertyRef Name="PostId" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="PostPostId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

@@ -3,12 +3,15 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace isvb.dev.Models
 {
     // You can add profile data for the user by adding more properties to your User class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -21,7 +24,7 @@ namespace isvb.dev.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("UsersConnection", throwIfV1Schema: false)
         {
         }
 
@@ -29,5 +32,7 @@ namespace isvb.dev.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<isvb.dev.ViewModels.UserViewModel> UserViewModels { get; set; }
     }
 }

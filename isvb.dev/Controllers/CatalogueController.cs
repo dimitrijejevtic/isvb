@@ -10,18 +10,20 @@ using isvb.dev;
 
 namespace isvb.dev.Controllers
 {
-    [Authorize]
-    public class ProductsController : Controller
+    
+    public class CatalogueController : Controller
     {
         private EFModelContainer db = new EFModelContainer();
 
-        // GET: Products
+        // GET: Catalogue
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View(db.Products.ToList());
         }
 
-        // GET: Products/Details/5
+        // GET: Catalogue/Details/5
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,18 +38,20 @@ namespace isvb.dev.Controllers
             return View(product);
         }
 
-        // GET: Products/Create
+        [Authorize(Roles ="Administrator, Owner")]
+        // GET: Catalogue/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Products/Create
+        // POST: Catalogue/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductId,Name,LatName,CartItemCartItemId,Price")] Product product)
+        [Authorize(Roles = "Administrator, Owner")]
+        public ActionResult Create([Bind(Include = "ProductId,Name,LatName,Price")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -59,7 +63,8 @@ namespace isvb.dev.Controllers
             return View(product);
         }
 
-        // GET: Products/Edit/5
+        // GET: Catalogue/Edit/5
+        [Authorize(Roles = "Administrator, Owner")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -74,12 +79,13 @@ namespace isvb.dev.Controllers
             return View(product);
         }
 
-        // POST: Products/Edit/5
+        // POST: Catalogue/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductId,Name,LatName,CartItemCartItemId,Price")] Product product)
+        [Authorize(Roles = "Administrator, Owner")]
+        public ActionResult Edit([Bind(Include = "ProductId,Name,LatName,Price")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +96,8 @@ namespace isvb.dev.Controllers
             return View(product);
         }
 
-        // GET: Products/Delete/5
+        // GET: Catalogue/Delete/5
+        [Authorize(Roles = "Administrator, Owner")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -105,9 +112,10 @@ namespace isvb.dev.Controllers
             return View(product);
         }
 
-        // POST: Products/Delete/5
+        // POST: Catalogue/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator, Owner")]
         public ActionResult DeleteConfirmed(int id)
         {
             Product product = db.Products.Find(id);
