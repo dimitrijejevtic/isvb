@@ -47,8 +47,11 @@ namespace isvb.dev.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ApplicationUser user = db.Users.Find(id);
-            var myUser = myContext.Users.Find(user.Email);
-            return View(new UserViewModel { Id = user.Id, Email = user.Email, Name =myUser.Name, UserName = user.UserName, EmailConfirmed = user.EmailConfirmed, PhoneNumber = user.PhoneNumber, PhoneNumberConfirmed = user.PhoneNumberConfirmed, LockoutEndDateUtc = user.LockoutEndDateUtc, AccessFailedCount = user.AccessFailedCount });
+            var myUser = myContext.Users.FirstOrDefault(x => x.Email == user.Email);
+            string name = "";
+            if (myUser!=null)
+                name = myUser.Name;
+            return View(new UserViewModel { Id = user.Id, Email = user.Email, Name =name, UserName = user.UserName, EmailConfirmed = user.EmailConfirmed, PhoneNumber = user.PhoneNumber, PhoneNumberConfirmed = user.PhoneNumberConfirmed, LockoutEndDateUtc = user.LockoutEndDateUtc, AccessFailedCount = user.AccessFailedCount });
         }
 
         public ActionResult Edit(string id)
@@ -58,8 +61,12 @@ namespace isvb.dev.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ApplicationUser user = db.Users.Find(id);
-            var myUser = myContext.Users.Find(user.Email);
-            return View(new UserViewModel { Id = user.Id, Email = user.Email, Name = myUser.Name, UserName = user.UserName, EmailConfirmed = user.EmailConfirmed, PhoneNumber = user.PhoneNumber, PhoneNumberConfirmed = user.PhoneNumberConfirmed, LockoutEndDateUtc = user.LockoutEndDateUtc, AccessFailedCount = user.AccessFailedCount });
+            //firstordefault
+            var myUser = myContext.Users.FirstOrDefault(x=>x.Email==user.Email);
+            string name = "";
+            if (myUser!=null)
+                name = myUser.Name;
+            return View(new UserViewModel { Id = user.Id, Email = user.Email, Name = name, UserName = user.UserName, EmailConfirmed = user.EmailConfirmed, PhoneNumber = user.PhoneNumber, PhoneNumberConfirmed = user.PhoneNumberConfirmed, LockoutEndDateUtc = user.LockoutEndDateUtc, AccessFailedCount = user.AccessFailedCount });
 
         }
 
