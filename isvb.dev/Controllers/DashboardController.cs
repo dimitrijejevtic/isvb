@@ -15,11 +15,12 @@ namespace isvb.dev.Controllers
     {
         private EFModelContainer myContext = new EFModelContainer();
         private ApplicationDbContext db = new ApplicationDbContext();
+
+
         // GET: Dashboard
-
-
         public ActionResult Index()
         {
+            
             return View();
         }
 
@@ -47,6 +48,10 @@ namespace isvb.dev.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ApplicationUser user = db.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
             var myUser = myContext.Users.FirstOrDefault(x => x.Email == user.Email);
             string name = "";
             if (myUser!=null)
@@ -61,7 +66,8 @@ namespace isvb.dev.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ApplicationUser user = db.Users.Find(id);
-            //firstordefault
+            if (user == null)
+                return HttpNotFound();
             var myUser = myContext.Users.FirstOrDefault(x=>x.Email==user.Email);
             string name = "";
             if (myUser!=null)
@@ -93,6 +99,42 @@ namespace isvb.dev.Controllers
                 return RedirectToAction("Index");
             }
             return View(userVM);
+        }
+
+        public ActionResult Delete(string id)
+        {
+            if (String.IsNullOrEmpty(id))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ApplicationUser user = db.Users.Find(id);
+            if (user == null)
+                return HttpNotFound();
+            var myUser = myContext.Users.FirstOrDefault(x => x.Email == user.Email);
+            string name = "";
+            if (myUser != null)
+                name = myUser.Name;
+            return View(new UserViewModel { Id = user.Id, Email = user.Email, Name = name, UserName = user.UserName, EmailConfirmed = user.EmailConfirmed, PhoneNumber = user.PhoneNumber, PhoneNumberConfirmed = user.PhoneNumberConfirmed, LockoutEndDateUtc = user.LockoutEndDateUtc, AccessFailedCount = user.AccessFailedCount });
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(string id)
+        {
+            if (String.IsNullOrEmpty(id))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ApplicationUser user = db.Users.Find(id);
+            if (user == null)
+                return HttpNotFound("Error happened at Delete confirmation, call the monkeys!");
+            var myUser = myContext.Users.FirstOrDefault(x => x.Email == user.Email);
+            if (myUser != null)           
+                myContext.Users.Remove(myUser);           
+            db.Users.Remove(user);
+            db.SaveChanges();
+            myContext.SaveChanges();
+            return View("Index");
         }
         protected override void Dispose(bool disposing)
         {

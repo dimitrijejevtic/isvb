@@ -35,10 +35,16 @@
             @Html.DisplayFor(modelItem => item.Price)
         </td>
         <td>
-            @if (User.IsInRole("Administrator") || User.IsInRole("Owner")){
-            @Html.ActionLink("Edit", "Edit", new { id = item.ProductId })  
+            @if (User.IsInRole("Administrator") || User.IsInRole("Owner"))
+            {
+            @Html.ActionLink("Edit", "Edit", new { id = item.ProductId })
+            @Html.ActionLink("Details", "Details", new { id = item.ProductId })  
+            @Html.ActionLink("Delete", "Delete", new { id = item.ProductId })
+            }
+            else 
+            {
             @Html.ActionLink("Details", "Details", new { id = item.ProductId }) 
-            @Html.ActionLink("Delete", "Delete", new { id = item.ProductId })} else {@Html.ActionLink("Details", "Details", new { id = item.ProductId }) }
+            }
 
                    
         </td>

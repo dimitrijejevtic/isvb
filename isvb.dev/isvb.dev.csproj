@@ -308,6 +308,7 @@
     <Content Include="Views\Dashboard\Users.cshtml" />
     <Content Include="Views\Dashboard\Details.cshtml" />
     <Content Include="Views\Dashboard\Edit.cshtml" />
+    <Content Include="Views\Dashboard\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
