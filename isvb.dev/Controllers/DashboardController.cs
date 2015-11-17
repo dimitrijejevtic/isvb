@@ -7,6 +7,10 @@ using System.Web.Mvc;
 using System.Data.Entity;
 using isvb.dev.ViewModels;
 using System.Net;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Web.Security;
+using Microsoft.AspNet.Identity;
+using System.Threading.Tasks;
 
 namespace isvb.dev.Controllers
 {
@@ -135,6 +139,14 @@ namespace isvb.dev.Controllers
             db.SaveChanges();
             myContext.SaveChanges();
             return View("Index");
+        }
+        public ActionResult Roles()
+        {
+            var roles = db.Roles.Include(x => x.Users).ToList();
+            var dbusers = db.Users.Include(x => x.Roles).ToList();
+            List<ApplicationUser> users = new List<ApplicationUser>();
+            List<RoleViewModel> rVM = new List<RoleViewModel>();
+            return View(rVM);
         }
         protected override void Dispose(bool disposing)
         {
