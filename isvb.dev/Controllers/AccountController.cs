@@ -10,6 +10,11 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using isvb.dev.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace isvb.dev.Controllers
 {
@@ -84,7 +89,18 @@ namespace isvb.dev.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    {
+                        var visitor = new Visitor();
+                        var userTemp = db.Users.FirstOrDefault(x => x.Email == model.Email);
+                        visitor.UserId = userTemp.Id;
+                        visitor.Time = DateTime.Now.ToString();
+                        visitor.VisitorIP = GetIPAdress(Request);
+                        visitor.VisitorCountry = "";// await GetCountryFromIp(visitor.VisitorIP);
+                        myContext.Visitors.Add(visitor);
+                        myContext.Entry(visitor).State = System.Data.Entity.EntityState.Added;
+                        myContext.SaveChanges();
+                        return RedirectToLocal(returnUrl);
+                    }
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -94,6 +110,25 @@ namespace isvb.dev.Controllers
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
             }
+        }
+
+        private async Task<string> GetCountryFromIp(string visitorIP)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://freegeoip.net/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = await client.GetAsync("json/"+visitorIP);
+                if (response.IsSuccessStatusCode)
+                {
+                    var res = await response.Content.ReadAsStringAsync();
+                    dynamic freeGeoIpResponse = JsonConvert.DeserializeObject<dynamic>(res);
+                    return freeGeoIpResponse.coutry_name;
+                }
+            }
+            return "";
         }
 
         //
@@ -414,7 +449,71 @@ namespace isvb.dev.Controllers
         {
             return View();
         }
+        private string GetIPAdress(HttpRequestBase request)
+        {
+            string szRemoteAddr = request.UserHostAddress;
+            string szXForwardedFor = request.ServerVariables["X_FORWARDED_FOR"];
+            string szIP = "";
 
+            if (szXForwardedFor == null)
+            {
+                szIP = szRemoteAddr;
+            }
+            else
+            {
+                szIP = szXForwardedFor;
+                if (szIP.IndexOf(",") > 0)
+                {
+                    string[] arIPs = szIP.Split(',');
+
+                    foreach (string item in arIPs)
+                    {
+                        if (!isPrivateIP(item))
+                        {
+                            return item;
+                        }
+                    }
+                }
+            }
+            return szIP;
+        }
+        private bool isPrivateIP(string adress)
+        {
+            Uri path = new Uri(adress);
+            IPAddress[] host;
+            IPAddress[] local;
+            bool isLocal = false;
+
+            host = Dns.GetHostAddresses(path.Host);
+            local = Dns.GetHostAddresses(Dns.GetHostName());
+
+            foreach (IPAddress hostAddress in host)
+            {
+                if (IPAddress.IsLoopback(hostAddress))
+                {
+                    isLocal = true;
+                    return isLocal;
+                }
+                else
+                {
+                    foreach (IPAddress localAddress in local)
+                    {
+                        if (hostAddress.Equals(localAddress))
+                        {
+                            isLocal = true;
+                            return isLocal;
+                        }
+                    }
+
+                    if (isLocal)
+                    {
+                        return isLocal;
+                    }
+                }
+                return isLocal;
+            }
+            return isLocal;
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -493,5 +592,6 @@ namespace isvb.dev.Controllers
             }
         }
         #endregion
+              
     }
 }

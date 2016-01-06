@@ -10,6 +10,7 @@
     <EntitySet Name="Bills" EntityType="EFModel.Store.Bills" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Images" EntityType="EFModel.Store.Images" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Comments" EntityType="EFModel.Store.Comments" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Visitors" EntityType="EFModel.Store.Visitors" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="CartUser" Association="EFModel.Store.CartUser">
       <End Role="Cart" EntitySet="Carts" />
       <End Role="User" EntitySet="Users" />
@@ -64,6 +65,7 @@
     </Key>
     <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
   <EntityType Name="CartItems">
     <Key>
@@ -125,6 +127,16 @@
     <Property Name="ComentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PostPostId" Type="int" Nullable="false" />
     <Property Name="User_UserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Visitors">
+    <Key>
+      <PropertyRef Name="VisitorId" />
+    </Key>
+    <Property Name="VisitorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="VisitorIP" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="VisitorCountry" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Time" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <Association Name="CartUser">
     <End Role="Cart" Type="EFModel.Store.Carts" Multiplicity="*" />

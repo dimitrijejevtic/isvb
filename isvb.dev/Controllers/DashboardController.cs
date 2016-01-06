@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace isvb.dev.Controllers
 {
-    [Authorize(Roles ="Administrator, Owner")]
+    [APIAuthorize(Roles ="Administrator, Owner")]
     public class DashboardController : Controller
     {
         private EFModelContainer myContext = new EFModelContainer();

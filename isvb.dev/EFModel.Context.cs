@@ -34,5 +34,6 @@ namespace isvb.dev
         public virtual DbSet<Bill> Bills { get; set; }
         public virtual DbSet<Image> Images { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<Visitor> Visitors { get; set; }
     }
 }

@@ -13,6 +13,7 @@
         <MappingFragment StoreEntitySet="Users">
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -74,6 +75,17 @@
         <MappingFragment StoreEntitySet="Comments">
           <ScalarProperty Name="ComentId" ColumnName="ComentId" />
           <ScalarProperty Name="PostPostId" ColumnName="PostPostId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Visitors">
+      <EntityTypeMapping TypeName="IsTypeOf(EFModel.Visitor)">
+        <MappingFragment StoreEntitySet="Visitors">
+          <ScalarProperty Name="VisitorId" ColumnName="VisitorId" />
+          <ScalarProperty Name="VisitorIP" ColumnName="VisitorIP" />
+          <ScalarProperty Name="VisitorCountry" ColumnName="VisitorCountry" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

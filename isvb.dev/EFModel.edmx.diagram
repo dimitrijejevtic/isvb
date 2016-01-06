@@ -24,6 +24,7 @@
         <AssociationConnector Association="EFModel.CommentUser" />
         <AssociationConnector Association="EFModel.OrderUser" />
         <AssociationConnector Association="EFModel.PostComment" />
+        <EntityTypeShape EntityType="EFModel.Visitor" Width="1.5" PointX="14.25" PointY="4" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

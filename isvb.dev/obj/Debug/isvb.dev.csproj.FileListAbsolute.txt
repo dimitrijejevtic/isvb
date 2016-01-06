@@ -135,3 +135,9 @@ C:\Users\mita2\Documents\GitHubVisualStudio\isvb\isvb.dev\bin\Microsoft.Owin.Sec
 C:\Users\mita2\Documents\GitHubVisualStudio\isvb\isvb.dev\obj\Debug\isvb.dev.dll
 C:\Users\mita2\Documents\GitHubVisualStudio\isvb\isvb.dev\obj\Debug\isvb.dev.pdb
 C:\Users\mita2\Documents\GitHubVisualStudio\isvb\isvb.dev\obj\Debug\isvb.dev.csprojResolveAssemblyReference.cache
+C:\Users\mita2\Documents\GitHubVisualStudio\isvb\isvb.dev\bin\System.Net.Http.Formatting.dll
+C:\Users\mita2\Documents\GitHubVisualStudio\isvb\isvb.dev\bin\System.Web.Http.dll
+C:\Users\mita2\Documents\GitHubVisualStudio\isvb\isvb.dev\bin\System.Web.Http.WebHost.dll
+C:\Users\mita2\Documents\GitHubVisualStudio\isvb\isvb.dev\bin\System.Net.Http.Formatting.xml
+C:\Users\mita2\Documents\GitHubVisualStudio\isvb\isvb.dev\bin\System.Web.Http.xml
+C:\Users\mita2\Documents\GitHubVisualStudio\isvb\isvb.dev\bin\System.Web.Http.WebHost.xml

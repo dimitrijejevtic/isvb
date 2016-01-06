@@ -50,6 +50,7 @@
       <End Role="Post" EntitySet="Posts" />
       <End Role="Comment" EntitySet="Comments" />
     </AssociationSet>
+    <EntitySet Name="Visitors" EntityType="EFModel.Visitor" />
   </EntityContainer>
   <EntityType Name="Cart">
     <Key>
@@ -70,6 +71,7 @@
     <Property Name="Email" Type="String" Nullable="false" />
     <NavigationProperty Name="Comments" Relationship="EFModel.CommentUser" FromRole="User" ToRole="Comment" />
     <NavigationProperty Name="Orders" Relationship="EFModel.OrderUser" FromRole="User" ToRole="Order" />
+    <Property Name="Name" Type="String" Nullable="true" />
   </EntityType>
   <Association Name="CartUser">
     <End Type="EFModel.Cart" Role="Cart" Multiplicity="*" />
@@ -194,4 +196,14 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="Visitor">
+    <Key>
+      <PropertyRef Name="VisitorId" />
+    </Key>
+    <Property Name="VisitorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="VisitorIP" Type="String" Nullable="false" />
+    <Property Name="VisitorCountry" Type="String" Nullable="false" />
+    <Property Name="Time" Type="String" Nullable="false" />
+    <Property Name="UserId" Type="String" Nullable="false" />
+  </EntityType>
 </Schema>

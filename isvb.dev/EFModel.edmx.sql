@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/24/2015 20:08:22
--- Generated from EDMX file: C:\Users\Dimitrije\documents\visual studio 2015\Projects\isvb.dev\isvb.dev\EFModel.edmx
+-- Date Created: 01/06/2016 19:07:58
+-- Generated from EDMX file: C:\Users\mita2\Documents\GitHubVisualStudio\isvb\isvb.dev\EFModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -26,6 +26,30 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_CartItemProduct]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[CartItems] DROP CONSTRAINT [FK_CartItemProduct];
 GO
+IF OBJECT_ID(N'[dbo].[FK_OrderCart]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Orders] DROP CONSTRAINT [FK_OrderCart];
+GO
+IF OBJECT_ID(N'[dbo].[FK_BillCart]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Bills] DROP CONSTRAINT [FK_BillCart];
+GO
+IF OBJECT_ID(N'[dbo].[FK_BillOrder]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Bills] DROP CONSTRAINT [FK_BillOrder];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ProductImage]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Images] DROP CONSTRAINT [FK_ProductImage];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CommentUser]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Comments] DROP CONSTRAINT [FK_CommentUser];
+GO
+IF OBJECT_ID(N'[dbo].[FK_OrderUser]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Orders] DROP CONSTRAINT [FK_OrderUser];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PostComment]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Comments] DROP CONSTRAINT [FK_PostComment];
+GO
+IF OBJECT_ID(N'[dbo].[FK_VisitorUser]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Visitors] DROP CONSTRAINT [FK_VisitorUser];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -43,6 +67,24 @@ GO
 IF OBJECT_ID(N'[dbo].[Products]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Products];
 GO
+IF OBJECT_ID(N'[dbo].[Posts]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Posts];
+GO
+IF OBJECT_ID(N'[dbo].[Orders]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Orders];
+GO
+IF OBJECT_ID(N'[dbo].[Bills]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Bills];
+GO
+IF OBJECT_ID(N'[dbo].[Images]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Images];
+GO
+IF OBJECT_ID(N'[dbo].[Comments]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Comments];
+GO
+IF OBJECT_ID(N'[dbo].[Visitors]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Visitors];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -58,7 +100,8 @@ GO
 -- Creating table 'Users'
 CREATE TABLE [dbo].[Users] (
     [UserId] int IDENTITY(1,1) NOT NULL,
-    [Email] nvarchar(max)  NOT NULL
+    [Email] nvarchar(max)  NOT NULL,
+    [Name] nvarchar(max)  NULL
 );
 GO
 
@@ -123,6 +166,16 @@ CREATE TABLE [dbo].[Comments] (
 );
 GO
 
+-- Creating table 'Visitors'
+CREATE TABLE [dbo].[Visitors] (
+    [VisitorId] int IDENTITY(1,1) NOT NULL,
+    [VisitorIP] nvarchar(max)  NOT NULL,
+    [VisitorCountry] nvarchar(max)  NOT NULL,
+    [Time] nvarchar(max)  NOT NULL,
+    [UserId] nvarchar(max)  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -179,6 +232,12 @@ GO
 ALTER TABLE [dbo].[Comments]
 ADD CONSTRAINT [PK_Comments]
     PRIMARY KEY CLUSTERED ([ComentId] ASC);
+GO
+
+-- Creating primary key on [VisitorId] in table 'Visitors'
+ALTER TABLE [dbo].[Visitors]
+ADD CONSTRAINT [PK_Visitors]
+    PRIMARY KEY CLUSTERED ([VisitorId] ASC);
 GO
 
 -- --------------------------------------------------
