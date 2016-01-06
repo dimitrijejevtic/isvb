@@ -33,7 +33,5 @@ namespace isvb.dev.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<isvb.dev.ViewModels.UserViewModel> UserViewModels { get; set; }
-
     }
 }

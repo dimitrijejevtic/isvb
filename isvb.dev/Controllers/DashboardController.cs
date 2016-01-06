@@ -142,11 +142,54 @@ namespace isvb.dev.Controllers
         }
         public ActionResult Roles()
         {
-            var roles = db.Roles.Include(x => x.Users).ToList();
-            var dbusers = db.Users.Include(x => x.Roles).ToList();
-            List<ApplicationUser> users = new List<ApplicationUser>();
-            List<RoleViewModel> rVM = new List<RoleViewModel>();
-            return View(rVM);
+            List<RoleViewModel> rvm = new List<RoleViewModel>();
+            ViewBag.Roles = db.Roles.ToList();
+            var users = db.Users.ToList();
+            foreach(ApplicationUser user in users)
+            {
+                var temp = user.Roles.FirstOrDefault();
+                if (temp != null)
+                {
+                    rvm.Add(new RoleViewModel { User = user, Role = db.Roles.FirstOrDefault(x => x.Id == temp.RoleId) });
+                }
+                else continue;
+            }
+            return View("Roles",rvm);
+
+            
+        }
+
+        public ActionResult EditRole(string id)
+        {
+            if (String.IsNullOrEmpty(id))
+            {
+                return new HttpNotFoundResult();
+            }else
+            {
+                ApplicationUser user = db.Users.Find(id);
+                IdentityUserRole tempRole = user.Roles.SingleOrDefault();
+                ViewModels.Enums.Role role =(ViewModels.Enums.Role) Enum.Parse(typeof(ViewModels.Enums.Role), tempRole.RoleId.ToString());
+                ViewBag.Roles = Enum.GetNames(typeof(ViewModels.Enums.Role));
+                return View("EditRole", new EditRoleViewModel { Id=user.Id,Email = user.Email, Role = role });
+            }
+        }
+        //POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditRole([Bind(Include ="Id, Email, Role")] EditRoleViewModel eRVM)
+        {
+            if (ModelState.IsValid)
+            {
+              //  ApplicationUser user = db.Users.Find(eRVM.Id);
+              //  user.Roles.First().RoleId = eRVM.Role.GetTypeCode().ToString();
+                IdentityUserRole userRole = new IdentityUserRole();
+                userRole.UserId = eRVM.Id;
+                userRole.RoleId = eRVM.Role.GetTypeCode().ToString();
+                db.Entry(userRole).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Roles");
         }
         protected override void Dispose(bool disposing)
         {

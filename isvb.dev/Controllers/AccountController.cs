@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using isvb.dev.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace isvb.dev.Controllers
 {
@@ -16,6 +17,7 @@ namespace isvb.dev.Controllers
     public class AccountController : Controller
     {
         private EFModelContainer myContext = new EFModelContainer();
+        private ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -160,8 +162,13 @@ namespace isvb.dev.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     var myUser = new User { Email = user.Email };
+                    var userRole = new IdentityUserRole() {RoleId=Convert.ToString((int)ViewModels.Enums.Role.Customer),UserId=user.Id };
+                    db.Entry(userRole).State = System.Data.Entity.EntityState.Added;
+                    user.Roles.Add(userRole);
                     myContext.Users.Add(myUser);
+                    myContext.Entry(myUser).State = System.Data.Entity.EntityState.Added;
                     myContext.SaveChanges();
+                    db.SaveChanges();
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);

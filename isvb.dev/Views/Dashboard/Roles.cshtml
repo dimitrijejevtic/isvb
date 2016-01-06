@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = "Roles";
+    var roles = ViewBag.Roles;
+    SelectList list = new SelectList(roles);
 }
 
 <h2>Roles</h2>
@@ -12,18 +14,30 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.RoleName)
+            @Html.DisplayNameFor(model => model.User)
+            
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.Role)
+        </th>
+        <th>
+
+        </th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.RoleName)
+            @Html.DisplayFor(modelItem => item.User.Email)
         </td>
-        
+        <td>
+            @Html.DisplayFor(modelItem=>item.Role.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit","EditRole",new {id=item.User.Id })
+        </td>
     </tr>
 }
-
+  
 </table>
+
