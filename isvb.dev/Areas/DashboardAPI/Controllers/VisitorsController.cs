@@ -23,7 +23,12 @@ namespace isvb.dev.Areas.DashboardAPI.Controllers
         {
             return db.Visitors;
         }
-
+        [HttpGet]
+        [Route("DashboardAPI/CountVisitors")]
+        public IHttpActionResult GetTotalVisitors()
+        {
+            return Ok(db.Visitors.Count());
+        }
         // GET: api/Visitors/5
         [ResponseType(typeof(Visitor))]
         public IHttpActionResult GetVisitor(int id)

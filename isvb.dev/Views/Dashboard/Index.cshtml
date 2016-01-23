@@ -2,10 +2,19 @@
 @{
     ViewBag.Title = "Dashboard";
 }
+    
 
-<h2>Index</h2>
+<h2>Site Dashboard</h2>
 
-@Html.ActionLink("User management","Users","Dashboard") <br />
-@Html.ActionLink("Products management","Index","Catalogue") <br />
-@Html.ActionLink("Role management","Roles","Dashboard")
+<div class="row">
+    <div class="col-md-4">
+        @Html.ActionLink("User management", "Users", "Dashboard") <br />
+        @Html.ActionLink("Products management", "Index", "Catalogue") <br />
+        @Html.ActionLink("Role management", "Roles", "Dashboard")
+    </div>
+    <div class="col-md-8 text-center" onload="getVisitorsCount()">
+        <h4>Numbers</h4>
+    </div>
+</div>
+@Scripts.Render("~/bundles/Dashboard")
 

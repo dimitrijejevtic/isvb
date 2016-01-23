@@ -180,8 +180,7 @@ namespace isvb.dev.Controllers
         {
             if (ModelState.IsValid)
             {
-              //  ApplicationUser user = db.Users.Find(eRVM.Id);
-              //  user.Roles.First().RoleId = eRVM.Role.GetTypeCode().ToString();
+
                 IdentityUserRole userRole = new IdentityUserRole();
                 userRole.UserId = eRVM.Id;
                 userRole.RoleId = eRVM.Role.GetTypeCode().ToString();
