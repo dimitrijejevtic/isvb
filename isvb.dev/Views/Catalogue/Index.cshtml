@@ -9,42 +9,65 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
+<table class="table table-striped">
+    <!-- <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            Image 
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LatName)
+           Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Price)
+             Html.DisplayNameFor(model => model.LatName)
+        </th>
+        <th>
+             Html.DisplayNameFor(model => model.Price)
         </th>
         <th></th>
-    </tr>
+    </tr> -->
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            <img src="http://www.priroda-leci-sve.com/slike/paradajz.gif" height="100" width="100" />
-        </td>
-        <td>
+        <td width="300">
             @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
+            <br/>
             @Html.DisplayFor(modelItem => item.LatName)
+            <br />
+            <img src="http://www.priroda-leci-sve.com/slike/paradajz.gif" height="150" width="150" />
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
+        <!-- <td>
+            Html.DisplayFor(modelItem => item.Name)
+        </td> -->
+        <td width="300">
+           Lorem ipsum dolorem sunt description description description kad ces da odes u drugi red mnogo si dugacak
+             <!-- Html.DisplayFor(modelItem => item.LatName) -->
+        </td>
+        <td align="right" width="300">
+            Price: 
+            @Html.DisplayFor(modelItem => item.Price) $
+            <br />
+            <div align="right" class="col-lg-2">
+                Quantity:
+            </div>
+            <div align="right" class="col-lg-2">
+                <input class="input-group col-lg-2" type="number" name="quantity" value="Qty."/>
+            </div>
+            <br />
+            <br />
+            <button class="btn btn-secondary" name="submit" type="submit">Add to Cart</button>
+
         </td>
         <td>
             @if (User.IsInRole("Administrator") || User.IsInRole("Owner"))
             {
             @Html.ActionLink("Edit", "Edit", new { id = item.ProductId })
-            @Html.ActionLink("Details", "Details", new { id = item.ProductId })  
+                <br />
+            @Html.ActionLink("Details", "Details", new { id = item.ProductId })
+                <br />
             @Html.ActionLink("Delete", "Delete", new { id = item.ProductId })
+                <br />
             }
-            else 
+            else
             {
             @Html.ActionLink("Details", "Details", new { id = item.ProductId }) 
             }
