@@ -28,7 +28,8 @@ namespace isvb.dev.Controllers
                 catalog = new CatalogViewModel();
                 catalog.Price = product.Price;
                 catalog.Name = product.Name;
-                catalog.ProductID = product.ProductId;
+                catalog.ProductId = product.ProductId;
+                catalog.LatName = product.LatName;
                 catalogs.Add(catalog);
             }
             return View(catalogs);
