@@ -202,22 +202,28 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="EFModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EFModel.Context.tt</DependentUpon>
     </Compile>
+    <Compile Include="EFModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EFModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="EFModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EFModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="File.cs">
+      <DependentUpon>EFModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Image.cs">
-      <DependentUpon>EFModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AttributeModels.cs" />
     <Compile Include="Order.cs">
@@ -235,6 +241,7 @@
     <Compile Include="ViewModels\%28Enums%29.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="ViewModels\CatalogViewModel.cs" />
     <Compile Include="ViewModels\EditRoleViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -338,6 +345,7 @@
     <Folder Include="Areas\DashboardAPI\Models\" />
     <Folder Include="Areas\DashboardAPI\Views\Shared\" />
     <Folder Include="Views\Error\" />
+    <Folder Include="Views\Image\" />
     <Folder Include="Views\Visitor\" />
   </ItemGroup>
   <ItemGroup>

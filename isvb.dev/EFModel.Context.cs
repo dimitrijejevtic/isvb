@@ -32,7 +32,7 @@ namespace isvb.dev
         public virtual DbSet<Post> Posts { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Bill> Bills { get; set; }
-        public virtual DbSet<Image> Images { get; set; }
+        public virtual DbSet<File> Files { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Visitor> Visitors { get; set; }
     }

@@ -60,13 +60,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Images">
-      <EntityTypeMapping TypeName="IsTypeOf(EFModel.Image)">
-        <MappingFragment StoreEntitySet="Images">
-          <ScalarProperty Name="ImageId" ColumnName="ImageId" />
-          <ScalarProperty Name="URI" ColumnName="URI" />
-          <ScalarProperty Name="Alt" ColumnName="Alt" />
+    <EntitySetMapping Name="Files">
+      <EntityTypeMapping TypeName="IsTypeOf(EFModel.File)">
+        <MappingFragment StoreEntitySet="Files">
+          <ScalarProperty Name="FileId" ColumnName="FileId" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
           <ScalarProperty Name="ProductProductId" ColumnName="ProductProductId" />
+          <ScalarProperty Name="FileType" ColumnName="FileType" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

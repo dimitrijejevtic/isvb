@@ -18,7 +18,7 @@ namespace isvb.dev
         public Product()
         {
             this.CartItem = new HashSet<CartItem>();
-            this.Images = new HashSet<Image>();
+            this.Files = new HashSet<File>();
         }
     
         public int ProductId { get; set; }
@@ -29,6 +29,6 @@ namespace isvb.dev
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CartItem> CartItem { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Image> Images { get; set; }
+        public virtual ICollection<File> Files { get; set; }
     }
 }

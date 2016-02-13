@@ -8,7 +8,7 @@
     <EntitySet Name="Posts" EntityType="EFModel.Store.Posts" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Orders" EntityType="EFModel.Store.Orders" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Bills" EntityType="EFModel.Store.Bills" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Images" EntityType="EFModel.Store.Images" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Files" EntityType="EFModel.Store.Files" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Comments" EntityType="EFModel.Store.Comments" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Visitors" EntityType="EFModel.Store.Visitors" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="CartUser" Association="EFModel.Store.CartUser">
@@ -37,7 +37,7 @@
     </AssociationSet>
     <AssociationSet Name="ProductImage" Association="EFModel.Store.ProductImage">
       <End Role="Product" EntitySet="Products" />
-      <End Role="Image" EntitySet="Images" />
+      <End Role="Image" EntitySet="Files" />
     </AssociationSet>
     <AssociationSet Name="CommentUser" Association="EFModel.Store.CommentUser">
       <End Role="Comment" EntitySet="Comments" />
@@ -50,6 +50,10 @@
     <AssociationSet Name="PostComment" Association="EFModel.Store.PostComment">
       <End Role="Post" EntitySet="Posts" />
       <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="ProductFile" Association="EFModel.Store.ProductFile">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="File" EntitySet="Files" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Carts">
@@ -111,14 +115,17 @@
     <Property Name="Cart_CartId" Type="int" Nullable="false" />
     <Property Name="Order_OrderId" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="Images">
+  <EntityType Name="Files">
     <Key>
-      <PropertyRef Name="ImageId" />
+      <PropertyRef Name="FileId" />
     </Key>
-    <Property Name="ImageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="URI" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Alt" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FileId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FileName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ContentType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Content" Type="varbinary(max)" Nullable="false" />
+    <Property Name="ProductId" Type="int" Nullable="false" />
     <Property Name="ProductProductId" Type="int" Nullable="false" />
+    <Property Name="FileType" Type="smallint" Nullable="false" />
   </EntityType>
   <EntityType Name="Comments">
     <Key>
@@ -212,13 +219,13 @@
   </Association>
   <Association Name="ProductImage">
     <End Role="Product" Type="EFModel.Store.Products" Multiplicity="1" />
-    <End Role="Image" Type="EFModel.Store.Images" Multiplicity="*" />
+    <End Role="Image" Type="EFModel.Store.Files" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Product">
         <PropertyRef Name="ProductId" />
       </Principal>
       <Dependent Role="Image">
-        <PropertyRef Name="ProductProductId" />
+        <PropertyRef Name="ProductId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -255,6 +262,18 @@
       </Principal>
       <Dependent Role="Comment">
         <PropertyRef Name="PostPostId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProductFile">
+    <End Role="Product" Type="EFModel.Store.Products" Multiplicity="1" />
+    <End Role="File" Type="EFModel.Store.Files" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="File">
+        <PropertyRef Name="ProductProductId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

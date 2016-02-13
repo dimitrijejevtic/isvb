@@ -32,10 +32,10 @@
       <End Role="Bill" EntitySet="Bills" />
       <End Role="Order" EntitySet="Orders" />
     </AssociationSet>
-    <EntitySet Name="Images" EntityType="EFModel.Image" />
+    <EntitySet Name="Files" EntityType="EFModel.File" />
     <AssociationSet Name="ProductImage" Association="EFModel.ProductImage">
       <End Role="Product" EntitySet="Products" />
-      <End Role="Image" EntitySet="Images" />
+      <End Role="Image" EntitySet="Files" />
     </AssociationSet>
     <EntitySet Name="Comments" EntityType="EFModel.Comment" />
     <AssociationSet Name="CommentUser" Association="EFModel.CommentUser">
@@ -51,6 +51,10 @@
       <End Role="Comment" EntitySet="Comments" />
     </AssociationSet>
     <EntitySet Name="Visitors" EntityType="EFModel.Visitor" />
+    <AssociationSet Name="ProductFile" Association="EFModel.ProductFile">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="File" EntitySet="Files" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Cart">
     <Key>
@@ -95,7 +99,7 @@
     <Property Name="LatName" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
     <NavigationProperty Name="CartItem" Relationship="EFModel.CartItemProduct" FromRole="Product" ToRole="CartItem" />
     <Property Name="Price" Type="Double" Nullable="false" />
-    <NavigationProperty Name="Images" Relationship="EFModel.ProductImage" FromRole="Product" ToRole="Image" />
+    <NavigationProperty Name="Files" Relationship="EFModel.ProductFile" FromRole="Product" ToRole="File" />
   </EntityType>
   <Association Name="CartItemCart">
     <End Type="EFModel.CartItem" Role="CartItem" Multiplicity="*" />
@@ -145,25 +149,28 @@
     <End Type="EFModel.Bill" Role="Bill" Multiplicity="1" />
     <End Type="EFModel.Order" Role="Order" Multiplicity="1" />
   </Association>
-  <EntityType Name="Image">
+  <EntityType Name="File">
     <Key>
-      <PropertyRef Name="ImageId" />
+      <PropertyRef Name="FileId" />
     </Key>
-    <Property Name="ImageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="URI" Type="String" Nullable="false" />
-    <Property Name="Alt" Type="String" Nullable="false" />
-    <NavigationProperty Name="Product" Relationship="EFModel.ProductImage" FromRole="Image" ToRole="Product" />
+    <Property Name="FileId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FileName" Type="String" Nullable="false" />
+    <Property Name="ContentType" Type="String" Nullable="false" />
+    <Property Name="Content" Type="Binary" Nullable="false" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Product" Relationship="EFModel.ProductFile" FromRole="File" ToRole="Product" />
     <Property Name="ProductProductId" Type="Int32" Nullable="false" />
+    <Property Name="FileType" Type="Int16" Nullable="false" />
   </EntityType>
   <Association Name="ProductImage">
     <End Type="EFModel.Product" Role="Product" Multiplicity="1" />
-    <End Type="EFModel.Image" Role="Image" Multiplicity="*" />
+    <End Type="EFModel.File" Role="Image" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Product">
         <PropertyRef Name="ProductId" />
       </Principal>
       <Dependent Role="Image">
-        <PropertyRef Name="ProductProductId" />
+        <PropertyRef Name="ProductId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -206,4 +213,16 @@
     <Property Name="Time" Type="String" Nullable="false" />
     <Property Name="UserId" Type="String" Nullable="false" />
   </EntityType>
+  <Association Name="ProductFile">
+    <End Type="EFModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="EFModel.File" Role="File" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="File">
+        <PropertyRef Name="ProductProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

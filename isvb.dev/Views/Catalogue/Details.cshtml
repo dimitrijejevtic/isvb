@@ -10,6 +10,15 @@
     <h4>Product</h4>
     <hr />
     <dl class="dl-horizontal">
+        @if (Model.Files.Any(x=>x.FileType==(int)isvb.dev.ViewModels.Enums.FileType.Cover))
+        {
+            <dt>
+                @Html.DisplayNameFor(model=>model.Files)
+            </dt>
+            <dd>
+                <img src="~/File?id=@Model.Files.First().FileId" alt="image" />
+            </dd>
+        }
         <dt>
             @Html.DisplayNameFor(model => model.Name)
         </dt>

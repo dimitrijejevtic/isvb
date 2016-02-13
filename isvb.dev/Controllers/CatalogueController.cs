@@ -43,7 +43,8 @@ namespace isvb.dev.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Products.Find(id);
+
+            Product product = db.Products.Include(x=>x.Files).SingleOrDefault(x=>x.ProductId==id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -64,16 +65,38 @@ namespace isvb.dev.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator, Owner")]
-        public ActionResult Create([Bind(Include = "ProductId,Name,LatName,Price")] Product product)
+        public ActionResult Create([Bind(Include = "ProductId,Name,LatName,Price")] Product product, HttpPostedFileBase upload)
         {
-            if (ModelState.IsValid)
-            {
-                db.Products.Add(product);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            try {
+                if (ModelState.IsValid)
+                {
+                    if (upload != null && upload.ContentLength > 0)
+                    {
+                        var img = new File
+                        {
+                            FileName = System.IO.Path.GetFileName(upload.FileName),
+                            ContentType = upload.ContentType,
+                            FileType =(int) ViewModels.Enums.FileType.Cover
+                        };
+                        using (var reader = new System.IO.BinaryReader(upload.InputStream))
+                        {
+                            img.Content = reader.ReadBytes(upload.ContentLength);
+                        }
+                        product.Files = new List<File> { img };
+                    }
+                    db.Products.Add(product);
+                    db.SaveChanges();
 
-            return View(product);
+                    
+                    return RedirectToAction("Index");
+                }
+            }catch(Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                ModelState.AddModelError("", "Unable  to save changes.");
+            }
+                return View(product);
+            
         }
 
         // GET: Catalogue/Edit/5

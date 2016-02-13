@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 01/06/2016 19:07:58
--- Generated from EDMX file: C:\Users\mita2\Documents\GitHubVisualStudio\isvb\isvb.dev\EFModel.edmx
+-- Date Created: 02/13/2016 14:25:00
+-- Generated from EDMX file: C:\Users\Dimitrije\Documents\GitHubVisualStudio\isvb\isvb.dev\EFModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -36,7 +36,7 @@ IF OBJECT_ID(N'[dbo].[FK_BillOrder]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Bills] DROP CONSTRAINT [FK_BillOrder];
 GO
 IF OBJECT_ID(N'[dbo].[FK_ProductImage]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Images] DROP CONSTRAINT [FK_ProductImage];
+    ALTER TABLE [dbo].[Files] DROP CONSTRAINT [FK_ProductImage];
 GO
 IF OBJECT_ID(N'[dbo].[FK_CommentUser]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Comments] DROP CONSTRAINT [FK_CommentUser];
@@ -47,8 +47,8 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_PostComment]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Comments] DROP CONSTRAINT [FK_PostComment];
 GO
-IF OBJECT_ID(N'[dbo].[FK_VisitorUser]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Visitors] DROP CONSTRAINT [FK_VisitorUser];
+IF OBJECT_ID(N'[dbo].[FK_ProductFile]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Files] DROP CONSTRAINT [FK_ProductFile];
 GO
 
 -- --------------------------------------------------
@@ -76,8 +76,8 @@ GO
 IF OBJECT_ID(N'[dbo].[Bills]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Bills];
 GO
-IF OBJECT_ID(N'[dbo].[Images]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Images];
+IF OBJECT_ID(N'[dbo].[Files]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Files];
 GO
 IF OBJECT_ID(N'[dbo].[Comments]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Comments];
@@ -149,12 +149,15 @@ CREATE TABLE [dbo].[Bills] (
 );
 GO
 
--- Creating table 'Images'
-CREATE TABLE [dbo].[Images] (
-    [ImageId] int IDENTITY(1,1) NOT NULL,
-    [URI] nvarchar(max)  NOT NULL,
-    [Alt] nvarchar(max)  NOT NULL,
-    [ProductProductId] int  NOT NULL
+-- Creating table 'Files'
+CREATE TABLE [dbo].[Files] (
+    [FileId] int IDENTITY(1,1) NOT NULL,
+    [FileName] nvarchar(max)  NOT NULL,
+    [ContentType] nvarchar(max)  NOT NULL,
+    [Content] varbinary(max)  NOT NULL,
+    [ProductId] int  NOT NULL,
+    [ProductProductId] int  NOT NULL,
+    [FileType] smallint  NOT NULL
 );
 GO
 
@@ -222,10 +225,10 @@ ADD CONSTRAINT [PK_Bills]
     PRIMARY KEY CLUSTERED ([BillId] ASC);
 GO
 
--- Creating primary key on [ImageId] in table 'Images'
-ALTER TABLE [dbo].[Images]
-ADD CONSTRAINT [PK_Images]
-    PRIMARY KEY CLUSTERED ([ImageId] ASC);
+-- Creating primary key on [FileId] in table 'Files'
+ALTER TABLE [dbo].[Files]
+ADD CONSTRAINT [PK_Files]
+    PRIMARY KEY CLUSTERED ([FileId] ASC);
 GO
 
 -- Creating primary key on [ComentId] in table 'Comments'
@@ -334,10 +337,10 @@ ON [dbo].[Bills]
     ([Order_OrderId]);
 GO
 
--- Creating foreign key on [ProductProductId] in table 'Images'
-ALTER TABLE [dbo].[Images]
+-- Creating foreign key on [ProductId] in table 'Files'
+ALTER TABLE [dbo].[Files]
 ADD CONSTRAINT [FK_ProductImage]
-    FOREIGN KEY ([ProductProductId])
+    FOREIGN KEY ([ProductId])
     REFERENCES [dbo].[Products]
         ([ProductId])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -345,8 +348,8 @@ GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_ProductImage'
 CREATE INDEX [IX_FK_ProductImage]
-ON [dbo].[Images]
-    ([ProductProductId]);
+ON [dbo].[Files]
+    ([ProductId]);
 GO
 
 -- Creating foreign key on [User_UserId] in table 'Comments'
@@ -392,6 +395,21 @@ GO
 CREATE INDEX [IX_FK_PostComment]
 ON [dbo].[Comments]
     ([PostPostId]);
+GO
+
+-- Creating foreign key on [ProductProductId] in table 'Files'
+ALTER TABLE [dbo].[Files]
+ADD CONSTRAINT [FK_ProductFile]
+    FOREIGN KEY ([ProductProductId])
+    REFERENCES [dbo].[Products]
+        ([ProductId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ProductFile'
+CREATE INDEX [IX_FK_ProductFile]
+ON [dbo].[Files]
+    ([ProductProductId]);
 GO
 
 -- --------------------------------------------------

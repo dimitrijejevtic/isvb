@@ -9,15 +9,19 @@
 
 namespace isvb.dev
 {
+    using ViewModels.Enums;
     using System;
     using System.Collections.Generic;
-    
-    public partial class Image
+
+    public partial class File
     {
-        public int ImageId { get; set; }
-        public string URI { get; set; }
-        public string Alt { get; set; }
+        public int FileId { get; set; }
+        public string FileName { get; set; }
+        public string ContentType { get; set; }
+        public byte[] Content { get; set; }
+        public int ProductId { get; set; }
         public int ProductProductId { get; set; }
+        public short FileType { get; set; }
     
         public virtual Product Product { get; set; }
     }

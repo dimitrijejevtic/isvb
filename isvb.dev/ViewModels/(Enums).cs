@@ -15,5 +15,10 @@ namespace isvb.dev.ViewModels
             Customer=2,
             Guest=1
         }
+        public enum FileType
+        {
+            Cover=1,
+            Slide=2
+        }
     }
 }
