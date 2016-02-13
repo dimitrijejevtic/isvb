@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace isvb.dev.ViewModels
 {
-    class CatalogViewModel
+    public class CatalogViewModel
     {
-        public int Quantity { get; set; }
+        public String Name { get; set; }
+        public int ProductID { get; set; }
         public double Price { get; set; }
         public String Description { get; set; }
         

@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using isvb.dev;
+using isvb.dev.ViewModels;
 
 namespace isvb.dev.Controllers
 {
@@ -19,7 +20,18 @@ namespace isvb.dev.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            return View(db.Products.ToList());
+            CatalogViewModel catalog;
+            var products = db.Products.ToList();
+            List<CatalogViewModel> catalogs = new List<CatalogViewModel>();
+            foreach (var product in products)
+            {
+                catalog = new CatalogViewModel();
+                catalog.Price = product.Price;
+                catalog.Name = product.Name;
+                catalog.ProductID = product.ProductId;
+                catalogs.Add(catalog);
+            }
+            return View(catalogs);
         }
 
         // GET: Catalogue/Details/5
