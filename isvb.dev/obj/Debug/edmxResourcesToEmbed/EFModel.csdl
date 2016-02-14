@@ -78,7 +78,7 @@
     <Property Name="Name" Type="String" Nullable="true" />
   </EntityType>
   <Association Name="CartUser">
-    <End Type="EFModel.Cart" Role="Cart" Multiplicity="*" />
+    <End Type="EFModel.Cart" Role="Cart" Multiplicity="1" />
     <End Type="EFModel.User" Role="User" Multiplicity="1" />
   </Association>
   <EntityType Name="CartItem">
@@ -130,7 +130,7 @@
     <NavigationProperty Name="User" Relationship="EFModel.OrderUser" FromRole="Order" ToRole="User" />
   </EntityType>
   <Association Name="OrderCart">
-    <End Type="EFModel.Order" Role="Order" Multiplicity="1" />
+    <End Type="EFModel.Order" Role="Order" Multiplicity="0..1" />
     <End Type="EFModel.Cart" Role="Cart" Multiplicity="1" />
   </Association>
   <EntityType Name="Bill">
@@ -142,11 +142,11 @@
     <NavigationProperty Name="Order" Relationship="EFModel.BillOrder" FromRole="Bill" ToRole="Order" />
   </EntityType>
   <Association Name="BillCart">
-    <End Type="EFModel.Bill" Role="Bill" Multiplicity="1" />
+    <End Type="EFModel.Bill" Role="Bill" Multiplicity="0..1" />
     <End Type="EFModel.Cart" Role="Cart" Multiplicity="1" />
   </Association>
   <Association Name="BillOrder">
-    <End Type="EFModel.Bill" Role="Bill" Multiplicity="1" />
+    <End Type="EFModel.Bill" Role="Bill" Multiplicity="0..1" />
     <End Type="EFModel.Order" Role="Order" Multiplicity="1" />
   </Association>
   <EntityType Name="File">

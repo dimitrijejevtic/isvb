@@ -9,10 +9,9 @@
 
 namespace isvb.dev
 {
-    using ViewModels.Enums;
     using System;
     using System.Collections.Generic;
-
+    
     public partial class File
     {
         public int FileId { get; set; }

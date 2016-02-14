@@ -15,6 +15,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 namespace isvb.dev.Controllers
 {
@@ -196,8 +197,12 @@ namespace isvb.dev.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    var myUser = new User { Email = user.Email };
+                    
                     var userRole = new IdentityUserRole() {RoleId=Convert.ToString((int)ViewModels.Enums.Role.Customer),UserId=user.Id };
+                    var cart = new Cart { CartItems = new List<CartItem>()};
+                    var myUser = new User { Email = user.Email,Cart=cart };
+                    myContext.Entry(cart).State = System.Data.Entity.EntityState.Added;
+                    myContext.Carts.Add(cart);
                     db.Entry(userRole).State = System.Data.Entity.EntityState.Added;
                     user.Roles.Add(userRole);
                     myContext.Users.Add(myUser);

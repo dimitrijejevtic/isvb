@@ -86,7 +86,6 @@ namespace isvb.dev.Controllers
                     }
                     db.Products.Add(product);
                     db.SaveChanges();
-
                     
                     return RedirectToAction("Index");
                 }
