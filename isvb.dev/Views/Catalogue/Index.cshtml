@@ -12,7 +12,7 @@
 <table class="table table-striped">
     <!-- <tr>
         <th>
-            Image 
+            Image
         </th>
         <th>
            Html.DisplayNameFor(model => model.Name)
@@ -25,56 +25,75 @@
         </th>
         <th></th>
     </tr> -->
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <div class="col-ld-3">
+                    <td width="200">
+                        Name: @Html.DisplayFor(modelItem => item.Name)
+                        <br />
+                        Lat Name: @Html.DisplayFor(modelItem => item.LatName)
+                        <br />
+                        <img src="http://www.priroda-leci-sve.com/slike/paradajz.gif" height="150" width="150" />
+                    </td>
+                </div>
+                <!-- <td>
+                    Html.DisplayFor(modelItem => item.Name)
+                </td> -->
+                <div class="col-ld-6">
+                    <td>
+                        Lorem ipsum dolorem sunt description description description kad ces da odes u drugi red mnogo si dugacak
+                        <!-- Html.DisplayFor(modelItem => item.LatName) -->
+                    </td>
+                </div>
+                <div class="col-ld-3">
 
-@foreach (var item in Model) {
-    <tr>
-        <td width="300">
-            @Html.DisplayFor(modelItem => item.Name)
-            <br/>
-            @Html.DisplayFor(modelItem => item.LatName)
-            <br />
-            <img src="http://www.priroda-leci-sve.com/slike/paradajz.gif" height="150" width="150" />
-        </td>
-        <!-- <td>
-            Html.DisplayFor(modelItem => item.Name)
-        </td> -->
-        <td width="300">
-           Lorem ipsum dolorem sunt description description description kad ces da odes u drugi red mnogo si dugacak
-             <!-- Html.DisplayFor(modelItem => item.LatName) -->
-        </td>
-        <td align="right" width="300">
-            Price: 
-            @Html.DisplayFor(modelItem => item.Price) $
-            <br />
-            <div align="right" class="col-lg-2">
-                Quantity:
-            </div>
-            <div align="right" class="col-lg-2">
-                <input class="input-group col-lg-2" type="number" name="quantity" value="Qty."/>
-            </div>
-            <br />
-            <br />
-            <button class="btn btn-secondary" name="submit" type="submit">Add to Cart</button>
+                    <td>
 
-        </td>
-        <td>
-            @if (User.IsInRole("Administrator") || User.IsInRole("Owner"))
-            {
-            @Html.ActionLink("Edit", "Edit", new { id = item.ProductId })
-                <br />
-            @Html.ActionLink("Details", "Details", new { id = item.ProductId })
-                <br />
-            @Html.ActionLink("Delete", "Delete", new { id = item.ProductId })
-                <br />
-            }
-            else
-            {
-            @Html.ActionLink("Details", "Details", new { id = item.ProductId }) 
-            }
+                        Price:
+                        @Html.DisplayFor(modelItem => item.Price) $
 
-                   
-        </td>
-    </tr>
-}
 
+                        <br />
+                        <div>
+                            <div class="col-lg-5">
+                                Quantity:
+                                <br />
+                                <input name="qty" type="number" id="qty" class="form-control" min="1">
+                            </div>
+                            <br />
+                        </div>
+
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <button class="btn btn-secondary" name="submit" type="submit">Add to Cart</button>
+                    </td>
+                </div>
+                <div class="col-ld-3">
+                    <td>
+                        @if (User.IsInRole("Administrator") || User.IsInRole("Owner"))
+                {
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ProductId })
+                            <br />
+                            @Html.ActionLink("Details", "Details", new { id = item.ProductId })
+                            <br />
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ProductId })
+                            <br />
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Details", "Details", new { id = item.ProductId })
+                        }
+
+
+                    </td>
+                </div>
+            </tr>
+
+        }
+    </div>
 </table>
