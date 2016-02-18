@@ -8,10 +8,22 @@ namespace isvb.dev.Controllers
 {
     public class SearchController : Controller
     {
+        private EFModelContainer db = new EFModelContainer();
         // GET: Search
-        public ActionResult Index()
+        public ActionResult Index(string text)
         {
-            return View();
+            var products = db.Products.ToList();
+            List<Product> resultP = new List<Product>();
+            foreach (Product p in products) {
+                if (p.Name.IndexOf(text) != -1) {
+                    resultP.Add(p);
+                }
+                
+                    
+                
+
+            }
+            return View(resultP);
         }
     }
 }
