@@ -25,10 +25,8 @@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Catalogue","Index","Catalogue")</li>
-                    <li><div class="dropdown">
-                        <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                        </button>
+                    <li><a id="dlabel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration:none"><span class="glyphicon glyphicon-search" aria-hidden="true" /></a>
+                        <div class="dropdown">
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                 <li>
                                     <div class="row">
@@ -46,14 +44,14 @@
                                     </div>
                                 </li>
                             </ul>
-                        
-                    </div></li>
+                        </div>
+                    </li>
                 </ul>
 
                 @Html.Partial("_LoginPartial")
                 
             </div>
-            
+          </div>
     </div>
     <div class="container body-content">
         @RenderBody()
