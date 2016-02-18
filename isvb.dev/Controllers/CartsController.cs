@@ -8,18 +8,24 @@ using System.Web;
 using System.Web.Mvc;
 using isvb.dev;
 using System.Threading.Tasks;
+using isvb.dev.Models;
 
 namespace isvb.dev.Controllers
 {
+    [APIAuthorize(Roles = "Administrator, Owner, Customer")]
     public class CartsController : Controller
     {
 
         private EFModelContainer db = new EFModelContainer();
 
         // GET: Carts
-        public ActionResult Index()
+        public ActionResult MyCart()
         {
-            throw new NotImplementedException();
+            var user = db.Users.FirstOrDefault(x => x.Email == User.Identity.Name);
+            var myCart = user.Cart;
+            var items = myCart.CartItems;
+            return View(items);
+            
         }
           
         public async Task<string> AddToCart(int? id,int quant)
@@ -31,11 +37,18 @@ namespace isvb.dev.Controllers
             }
                        
             var user = db.Users.FirstOrDefault(x => x.Email == User.Identity.Name);
+            
             var product = db.Products.Find(id);
-            var cartItem = new CartItem { Product = product, Quantity = quant };
-            List<CartItem> items = new List<CartItem>();
-            items.Add(cartItem);
-            user.Cart.CartItems.Add(cartItem);
+            var tempCartItem = user.Cart.CartItems.FirstOrDefault(x => x.Product.ProductId == id);
+            if (tempCartItem == null)
+            {
+                tempCartItem = new CartItem { Product = product, Quantity = quant };
+            }
+            else
+            {
+                tempCartItem.Quantity += quant;
+            }            
+            user.Cart.CartItems.Add(tempCartItem);
             db.SaveChanges();
             return "Product added!!";                           
         }     

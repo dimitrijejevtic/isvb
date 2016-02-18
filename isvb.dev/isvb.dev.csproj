@@ -341,7 +341,7 @@
     <Content Include="Views\Dashboard\Roles.cshtml" />
     <Content Include="Views\Dashboard\EditRole.cshtml" />
     <Content Include="Views\Carts\Edit.cshtml" />
-    <Content Include="Views\Carts\Index.cshtml" />
+    <Content Include="Views\Carts\MyCart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

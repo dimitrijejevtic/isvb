@@ -1,0 +1,29 @@
+﻿@model IEnumerable<isvb.dev.CartItem>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>My cart</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th></th>
+        <th>@Html.DisplayNameFor(x=>x.Product.Name)</th>
+        <th>@Html.DisplayNameFor(x => x.Quantity)</th>
+        <th>@Html.DisplayNameFor(x => x.Product.Price)</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td></td>
+        <td>@Html.DisplayFor(modelItem=>item.Product.Name)</td>
+        <td>@Html.DisplayFor(modelitem=>item.Quantity)</td>
+        <td>@Html.DisplayFor(modelItem=>item.Product.Price)</td>
+    </tr>
+}
+
+</table>
