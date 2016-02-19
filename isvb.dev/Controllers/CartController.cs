@@ -33,8 +33,7 @@ namespace isvb.dev.Controllers
                 return "That product doesnt exist!";
             }
                        
-            var user = db.Users.FirstOrDefault(x => x.Email == User.Identity.Name);
-            
+            var user = db.Users.FirstOrDefault(x => x.Email == User.Identity.Name);           
             var product = db.Products.Find(id);
             var tempCartItem = user.Cart.CartItems.FirstOrDefault(x => x.Product.ProductId == id);
             if (tempCartItem == null)
