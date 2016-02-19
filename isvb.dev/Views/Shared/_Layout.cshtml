@@ -6,6 +6,12 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    
+    <script type="text/javascript">
+        
+           
+        
+    </script>
 
 </head>
 <body>
@@ -25,8 +31,8 @@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Catalogue","Index","Catalogue")</li>
-                    <li><a id="dlabel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration:none"><span class="glyphicon glyphicon-search" aria-hidden="true" /></a>
-                        <div class="dropdown">
+                    <li><a id="dlabel" class="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration:none"><span class="glyphicon glyphicon-search" aria-hidden="true" /></a>
+                        
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                 <li>
                                     <div class="row">
@@ -36,7 +42,7 @@
                                                 <div class="input-group">
                                                     <input name="text" type="text" class="form-control" placeholder="Search for...">
                                                     <span class="input-group-btn">
-                                                        <button class="btn btn-default" type="submit">trazi</button>
+                                                        <button class="btn btn-default" type="submit">Search</button>
                                                     </span>
                                                 </div>
                                             }
@@ -44,7 +50,7 @@
                                     </div>
                                 </li>
                             </ul>
-                        </div>
+                        
                     </li>
                 </ul>
 
