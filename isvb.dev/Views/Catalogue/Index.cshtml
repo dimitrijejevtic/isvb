@@ -4,96 +4,87 @@
     ViewBag.Title = "Index";
 }
 
+<script>
+    $(".btn").click(function () {
+        var id = this.id;
+        var input = document.getElementById("qty-" + id);
+        var q=input.value;
+    });
+
+    $.ajax({
+        type: 'GET',
+        url: 'DashboardAPI/CountVisitors?id='+id+'&quant='+q,
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            alert(data)
+        }
+    });
+</script>
+
 <h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table table-striped">
-    <!-- <tr>
-        <th>
-            Image
-        </th>
-        <th>
-           Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-             Html.DisplayNameFor(model => model.LatName)
-        </th>
-        <th>
-             Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th></th>
-    </tr> -->
-    <div class="row">
-        @foreach (var item in Model)
-        {
-            <tr>
-                <div class="col-ld-3">
-                    <td width="200">
-                        Name: @Html.DisplayFor(modelItem => item.Name)
+<div class="container">
+    @foreach (var item in Model)
+    {
+        <div class="row">
+            <div class="col-ld-3 col-md-3">
+
+                Name: @Html.DisplayFor(modelItem => item.Name)
+                <br />
+                Lat Name: @Html.DisplayFor(modelItem => item.LatName)
+                <br />
+               @if (item.File == null)
+               {
+                   <img src="" alt="" height="150" width="150" />
+               }
+               else
+               {<img src="~/File?id=@item.File.FileId" height="150" width="150" alt="image" />
+               }
+
+            </div>
+            <div class="col-ld-6 col-md-6">
+                <p>Lorem ipsum dolorem sunt description description description kad ces da odes u drugi red mnogo si dugacak</p>
+            </div>
+            <div class="col-ld-3 col-md-3">
+
+                Price:
+                @Html.DisplayFor(modelItem => item.Price) $
+
+                <br />
+                <div>
+                    <div class="col-lg-4">
+
+                        Quantity:
                         <br />
-                        Lat Name: @Html.DisplayFor(modelItem => item.LatName)
-                        <br />
-                        <img src="http://www.priroda-leci-sve.com/slike/paradajz.gif" height="150" width="150" />
-                    </td>
+                        <input name="qty" type="number" id="qty-@item.ProductId" class="form-control" min="1">
+                    </div>
+                    <br />
                 </div>
-                <!-- <td>
-                    Html.DisplayFor(modelItem => item.Name)
-                </td> -->
-                <div class="col-ld-6">
-                    <td>
-                        Lorem ipsum dolorem sunt description description description kad ces da odes u drugi red mnogo si dugacak
-                        <!-- Html.DisplayFor(modelItem => item.LatName) -->
-                    </td>
-                </div>
-                <div class="col-ld-3">
 
-                    <td>
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                              
+                <button class="btn btn-secondary" name="submit" type="button" id="@item.ProductId">Add to Cart</button>
+                    <br />
 
-                        Price:
-                        @Html.DisplayFor(modelItem => item.Price) $
-
-
-                        <br />
-                        <div>
-                            <div class="col-lg-5">
-                                Quantity:
-                                <br />
-                                <input name="qty" type="number" id="qty" class="form-control" min="1">
-                            </div>
-                            <br />
-                        </div>
-
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <button class="btn btn-secondary" name="submit" type="submit">Add to Cart</button>
-                    </td>
-                </div>
-                <div class="col-ld-3">
-                    <td>
-                        @if (User.IsInRole("Administrator") || User.IsInRole("Owner"))
+                @if (User.IsInRole("Administrator") || User.IsInRole("Owner"))
                 {
-                            @Html.ActionLink("Edit", "Edit", new { id = item.ProductId })
-                            <br />
-                            @Html.ActionLink("Details", "Details", new { id = item.ProductId })
-                            <br />
-                            @Html.ActionLink("Delete", "Delete", new { id = item.ProductId })
-                            <br />
-                        }
-                        else
-                        {
-                            @Html.ActionLink("Details", "Details", new { id = item.ProductId })
-                        }
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ProductId })
+                    <br />
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ProductId })
+                }
 
+            </div>
 
-                    </td>
-                </div>
-            </tr>
+        </div>
+        <hr class="featurette-divider">
+    }
 
-        }
-    </div>
-</table>
+</div>
