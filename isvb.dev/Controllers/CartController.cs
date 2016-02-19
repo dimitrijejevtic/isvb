@@ -49,36 +49,17 @@ namespace isvb.dev.Controllers
             db.SaveChanges();
             return "Product added!!";                           
         }     
-
-        // GET: Carts/Edit/5
-        public ActionResult Edit(int? id)
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<string> UpdateItem(int id, int quant)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Cart cart = db.Carts.Find(id);
-            if (cart == null)
-            {
-                return HttpNotFound();
-            }
-            return View(cart);
+            throw new NotImplementedException();
         }
 
-        // POST: Carts/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CartId")] Cart cart)
+        public async Task<string> DeleteItem(int id)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(cart).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(cart);
+            throw new NotImplementedException();
         }
 
         protected override void Dispose(bool disposing)

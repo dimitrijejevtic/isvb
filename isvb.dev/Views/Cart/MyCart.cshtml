@@ -20,9 +20,9 @@
     <tr>
         <td></td>
         <td>@Html.DisplayFor(modelItem=>item.Product.Name)</td>
-        <td>@Html.DisplayFor(modelitem=>item.Quantity)</td>
+        <td>@Html.EditorFor(modelitem=>item.Quantity, new { htmlAttributes = new { @class = "form-control" } })</td>
         <td>@Html.DisplayFor(modelItem=>item.Product.Price)</td>
-        <td></td>
+        <td><a href="">Update</a>| <a href="">Delete</a></td>
     </tr>
 }
 
