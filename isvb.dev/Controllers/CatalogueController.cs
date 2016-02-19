@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using isvb.dev;
 using isvb.dev.ViewModels;
+using isvb.dev.ViewModels.Enums;
 
 namespace isvb.dev.Controllers
 {
@@ -25,7 +26,9 @@ namespace isvb.dev.Controllers
             List<CatalogViewModel> catalogs = new List<CatalogViewModel>();
             foreach (var product in products)
             {
+                
                 catalog = new CatalogViewModel();
+                catalog.File = db.Files.SingleOrDefault(x => x.ProductId == product.ProductId);
                 catalog.Price = product.Price;
                 catalog.Name = product.Name;
                 catalog.ProductId = product.ProductId;
