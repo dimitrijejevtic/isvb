@@ -19,7 +19,13 @@
                 <br />
                 Lat Name: @Html.DisplayFor(modelItem => item.LatName)
                 <br />
-                <img src="~/File?id=@item.File.FileId" height="150" width="150" alt="image" />
+               @if (item.File == null)
+               {
+                   <img src="" alt="" height="150" width="150" />
+               }
+               else
+               {<img src="~/File?id=@item.File.FileId" height="150" width="150" alt="image" />
+               }
 
             </div>
             <div class="col-ld-6 col-md-6">
