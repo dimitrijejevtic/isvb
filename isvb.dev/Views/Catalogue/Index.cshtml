@@ -4,6 +4,24 @@
     ViewBag.Title = "Index";
 }
 
+<script>
+    $(".btn").click(function () {
+        var id = this.id;
+        var input = document.getElementById("qty-" + id);
+        var q=input.value;
+    });
+
+    $.ajax({
+        type: 'GET',
+        url: 'DashboardAPI/CountVisitors?id='+id+'&quant='+q,
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            alert(data)
+        }
+    });
+</script>
+
 <h2>Index</h2>
 
 <p>
@@ -42,7 +60,7 @@
 
                         Quantity:
                         <br />
-                        <input name="qty" type="number" id="qty" class="form-control" min="1">
+                        <input name="qty" type="number" id="qty-@item.ProductId" class="form-control" min="1">
                     </div>
                     <br />
                 </div>
@@ -52,8 +70,9 @@
                 <br />
                 <br />
                 <br />
-                <button class="btn btn-secondary" name="submit" type="submit">Add to Cart</button>
-                <br />
+                              
+                <button class="btn btn-secondary" name="submit" type="button" id="@item.ProductId">Add to Cart</button>
+                    <br />
 
                 @if (User.IsInRole("Administrator") || User.IsInRole("Owner"))
                 {
