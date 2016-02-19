@@ -12,10 +12,9 @@ using isvb.dev.Models;
 
 namespace isvb.dev.Controllers
 {
-    [APIAuthorize(Roles = "Administrator, Owner, Customer")]
-    public class CartsController : Controller
+    [APIAuthorize(Roles = "Customer,Administrator,Owner")]
+    public class CartController : Controller
     {
-
         private EFModelContainer db = new EFModelContainer();
 
         // GET: Carts
@@ -24,10 +23,8 @@ namespace isvb.dev.Controllers
             var user = db.Users.FirstOrDefault(x => x.Email == User.Identity.Name);
             var myCart = user.Cart;
             var items = myCart.CartItems;
-            return View(items);
-            
-        }
-          
+            return View("MyCart",items);            
+        }         
         public async Task<string> AddToCart(int? id,int quant)
         {
             //JavaScript should handle this

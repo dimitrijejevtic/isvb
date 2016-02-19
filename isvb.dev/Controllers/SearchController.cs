@@ -17,11 +17,7 @@ namespace isvb.dev.Controllers
             foreach (Product p in products) {
                 if (p.Name.IndexOf(text) != -1) {
                     resultP.Add(p);
-                }
-                
-                    
-                
-
+                }                                                 
             }
             return View(resultP);
         }
