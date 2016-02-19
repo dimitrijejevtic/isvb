@@ -1,7 +1,7 @@
 ﻿function getVisitorsCount() {
     $.ajax({
         type: 'GET',
-        url: 'API/CountVisitors',
+        url: 'DashboardAPI/CountVisitors',
         dataType: 'json',
         contentType: 'application/json',
         success:function(data){
