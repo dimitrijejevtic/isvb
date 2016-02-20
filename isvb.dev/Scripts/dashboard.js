@@ -2,10 +2,10 @@
     $.ajax({
         type: 'GET',
         url: 'DashboardAPI/CountVisitors',
-        dataType: 'json',
         contentType: 'application/json',
+        dataType:'json',
         success:function(data){
-            alert(data)
+            $(".visitors").text(data)
         }
     });
 };

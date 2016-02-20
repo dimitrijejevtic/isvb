@@ -9,7 +9,6 @@ function updateFunction(id, q) {
     $.ajax({
         type: 'POST',
         url: 'UpdateItem?id=' + id + '&quant=' + q,
-        dataType: 'json',
         contentType: 'application/json'
 
     });
@@ -23,7 +22,6 @@ function deleteFunction(id) {
     $.ajax({
         type: 'GET',
         url: 'DeleteItem?id=' + id,
-        dataType: 'json',
         contentType: 'application/json'
 
     });
