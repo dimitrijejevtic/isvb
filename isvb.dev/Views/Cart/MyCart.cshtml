@@ -50,14 +50,15 @@
     $(document).ready(function () {
         $(".update").click(function () {
             var id = this.id;
-            var q = document.getElementById("item_Quantity");
+            var input = document.getElementById("qty-" + id);
+            var q = input.value;
             updateFunction(id, q);
         });
     });
 
     function updateFunction(id, q) {
         $.ajax({
-            type: 'GET',
+            type: 'POST',
             url: 'UpdateItem?id='+id+'&quant='+q,
             dataType: 'json',
             contentType: 'application/json'
