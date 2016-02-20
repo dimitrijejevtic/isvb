@@ -250,6 +250,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\RoleViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
+    <Compile Include="ViewModels\VisitorsCountViewModel.cs" />
     <Compile Include="Visitor.cs">
       <DependentUpon>EFModel.tt</DependentUpon>
     </Compile>
