@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using isvb.dev;
 using isvb.dev.Models;
+using isvb.dev.ViewModels;
 
 namespace isvb.dev.Areas.DashboardAPI.Controllers
 {
@@ -21,7 +22,25 @@ namespace isvb.dev.Areas.DashboardAPI.Controllers
         // GET: api/Visitors
         public IQueryable<Visitor> GetVisitors()
         {
-            return db.Visitors;
+            VisitorsCountViewModel count;
+            var visitors = db.Visitors.ToList();
+            List<VisitorsCountViewModel> counts = new List<VisitorsCountViewModel>();
+
+            foreach (var visitor in visitors)
+            {
+                count = new VisitorsCountViewModel();
+                count.Date = DateTime.Parse(visitor.Time);
+                if ((DateTime.Now - count.Date).TotalDays > 7) break;
+                if (counts.Contains(count)) break; //necu ovo, samo datum da proverava da li postoji u listi vec
+                int pom = 0;
+                foreach (var v in visitors)
+                {
+                    if (DateTime.Parse(v.Time) == count.Date) pom++;
+                }
+                count.Count = pom;
+                counts.Add(count);
+            }
+            return db.Visitors; //catalogs but nece
         }
         [HttpGet]
         [Route("DashboardAPI/CountVisitors")]
