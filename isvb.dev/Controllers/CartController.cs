@@ -58,10 +58,11 @@ namespace isvb.dev.Controllers
         public async Task<string> DeleteItem(int id)
         {
             var myUser = db.Users.FirstOrDefault(x => x.Email == User.Identity.Name);
-            var cartItems = myUser.Cart.CartItems;
+            var cartItems = myUser.Cart.CartItems.Where(x=>x.Cart.User.UserId==myUser.UserId).ToList();
             foreach (var item in cartItems)
             {
-                if (item.CartItemId == id) db.CartItems.Remove(item);
+                if (item.Product.ProductId == id)
+                    db.CartItems.Remove(item);
             }
 
             db.SaveChanges();
