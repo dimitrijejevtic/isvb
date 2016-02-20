@@ -49,10 +49,14 @@ namespace isvb.dev.Controllers
             return "Product added!!";                           
         }     
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<string> UpdateItem(int id, int quant)
         {
-            throw new NotImplementedException();
+            var user = db.Users.FirstOrDefault(x => x.Email == User.Identity.Name);
+            var tempCartItem = user.Cart.CartItems.FirstOrDefault(x => x.Product.ProductId == id);
+            tempCartItem.Quantity = quant;
+            db.SaveChanges();
+            return "Product updated!!";
+          
         }
 
         public async Task<string> DeleteItem(int id)
