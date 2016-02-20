@@ -20,7 +20,7 @@
     <tr>
         <td></td>
         <td>@Html.DisplayFor(modelItem=>item.Product.Name)</td>
-        <td>@Html.EditorFor(modelitem=>item.Quantity, new { htmlAttributes = new { @class = "form-control" } })</td>
+        <td>@Html.EditorFor(modelitem=>item.Quantity, new { htmlAttributes = new { @class = "form-control", id="qty-"+item.Product.ProductId } })</td>
         <td>@Html.DisplayFor(modelItem=>item.Product.Price)</td>
         <td><button class="btn btn-default update" name="submit" type="button" id="@item.Product.ProductId">Update</button>| <button class="btn btn-default delete" name="submit" type="button" id="@item.Product.ProductId">Remove</button></td>
     </tr>
