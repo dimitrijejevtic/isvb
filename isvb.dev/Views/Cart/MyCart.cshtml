@@ -20,29 +20,11 @@
     <tr>
         <td></td>
         <td>@Html.DisplayFor(modelItem=>item.Product.Name)</td>
-        <td>@Html.EditorFor(modelitem=>item.Quantity, new { htmlAttributes = new { @class = "form-control" } })</td>
+        <td>@Html.EditorFor(modelitem=>item.Quantity, new { htmlAttributes = new { @class = "form-control", id="qty-"+item.Product.ProductId } })</td>
         <td>@Html.DisplayFor(modelItem=>item.Product.Price)</td>
-        <td><a href="">Update</a>| <button class="btn btn-secondary" name="submit" type="button" id="@item.Product.ProductId">Remove</button></td>
+        <td><button class="btn btn-default update" name="submit" type="button" id="@item.Product.ProductId">Update</button><button class="btn btn-default delete" name="submit" type="button" id="@item.Product.ProductId">Remove</button></td>
     </tr>
 }
     
 </table>
-<script>
-    $(document).ready(function () {
-        $(".btn").click(function () {
-            var id = this.id;
-            deleteFunction(id);
-        });
-    });
-
-    function deleteFunction(id) {
-        $.ajax({
-            type: 'GET',
-            url: 'DeleteItem?id='+id,
-            dataType: 'json',
-            contentType: 'application/json'
-            
-        });
-    }
-</script>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+@Scripts.Render("~/bundles/mycart.js")
