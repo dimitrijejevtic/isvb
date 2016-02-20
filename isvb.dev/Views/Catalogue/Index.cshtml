@@ -4,23 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<script>
-    $(".btn").click(function () {
-        var id = this.id;
-        var input = document.getElementById("qty-" + id);
-        var q=input.value;
-    });
 
-    $.ajax({
-        type: 'GET',
-        url: 'DashboardAPI/CountVisitors?id='+id+'&quant='+q,
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (data) {
-            alert(data)
-        }
-    });
-</script>
 
 <h2>Index</h2>
 
@@ -88,3 +72,6 @@
     }
 
 </div>
+
+@Scripts.Render("~/bundles/cartJs")
+

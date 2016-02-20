@@ -28,6 +28,8 @@ namespace isvb.dev
                       "~/Content/site.css"));
             bundles.Add(new ScriptBundle("~/bundles/dashboard").Include(
                      "~/Scripts/dashboard.js"));
+            bundles.Add(new ScriptBundle("~/bundles/cartJs").Include(
+                    "~/Scripts/cartJS.js"));
         }
     }
 }
