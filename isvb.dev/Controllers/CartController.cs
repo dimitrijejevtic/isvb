@@ -49,7 +49,6 @@ namespace isvb.dev.Controllers
             return "Product added!!";                           
         }     
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<string> UpdateItem(int id, int quant)
         {
