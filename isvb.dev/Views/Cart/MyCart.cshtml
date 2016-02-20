@@ -22,14 +22,14 @@
         <td>@Html.DisplayFor(modelItem=>item.Product.Name)</td>
         <td>@Html.EditorFor(modelitem=>item.Quantity, new { htmlAttributes = new { @class = "form-control" } })</td>
         <td>@Html.DisplayFor(modelItem=>item.Product.Price)</td>
-        <td><a href="">Update</a>| <button class="btn btn-secondary" name="submit" type="button" id="@item.Product.ProductId">Remove</button></td>
+        <td><button class="btn btn-default update" name="submit" type="button" id="@item.Product.ProductId">Update</button>| <button class="btn btn-default delete" name="submit" type="button" id="@item.Product.ProductId">Remove</button></td>
     </tr>
 }
     
 </table>
 <script>
     $(document).ready(function () {
-        $(".btn").click(function () {
+        $(".delete").click(function () {
             var id = this.id;
             deleteFunction(id);
         });
@@ -42,6 +42,26 @@
             dataType: 'json',
             contentType: 'application/json'
             
+        });
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        $(".update").click(function () {
+            var id = this.id;
+            var q = document.getElementById("item_Quantity");
+            updateFunction(id, q);
+        });
+    });
+
+    function updateFunction(id, q) {
+        $.ajax({
+            type: 'GET',
+            url: 'UpdateItem?id='+id+'&quant='+q,
+            dataType: 'json',
+            contentType: 'application/json'
+
         });
     }
 </script>
