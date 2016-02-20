@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace isvb.dev.ViewModels
 {
-    class VisitorsCountViewModel
+    public class VisitorsCountViewModel
     {
         public DateTime Date { get; set; }
         public int Count { get; set; }

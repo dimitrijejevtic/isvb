@@ -20,7 +20,7 @@ namespace isvb.dev.Areas.DashboardAPI.Controllers
         private EFModelContainer db = new EFModelContainer();
 
         // GET: api/Visitors
-        public IQueryable<Visitor> GetVisitors()
+        public List<VisitorsCountViewModel> GetVisitors()
         {
             VisitorsCountViewModel count;
             var visitors = db.Visitors.ToList();
@@ -31,7 +31,12 @@ namespace isvb.dev.Areas.DashboardAPI.Controllers
                 count = new VisitorsCountViewModel();
                 count.Date = DateTime.Parse(visitor.Time);
                 if ((DateTime.Now - count.Date).TotalDays > 7) break;
-                if (counts.Contains(count)) break; //necu ovo, samo datum da proverava da li postoji u listi vec
+                bool exists = false;
+                foreach (var c in counts)
+                {
+                    if (count.Date == c.Date) exists = true;
+                }
+                if (exists) break; //necu ovo, samo datum da proverava da li postoji u listi vec
                 int pom = 0;
                 foreach (var v in visitors)
                 {
@@ -40,7 +45,7 @@ namespace isvb.dev.Areas.DashboardAPI.Controllers
                 count.Count = pom;
                 counts.Add(count);
             }
-            return db.Visitors; //catalogs but nece
+            return counts;
         }
         [HttpGet]
         [Route("DashboardAPI/CountVisitors")]
