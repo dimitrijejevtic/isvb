@@ -22,7 +22,7 @@
         <td>@Html.DisplayFor(modelItem=>item.Product.Name)</td>
         <td>@Html.EditorFor(modelitem=>item.Quantity, new { htmlAttributes = new { @class = "form-control" } })</td>
         <td>@Html.DisplayFor(modelItem=>item.Product.Price)</td>
-        <td><a href="">Update</a>| <button onclick="deleteFunction()"  class="btn btn-secondary" name="submit" type="button" id="@item.Product.ProductId">Remove</button></td>
+        <td><a href="">Update</a>| <button class="btn btn-secondary" name="submit" type="button" id="@item.Product.ProductId">Remove</button></td>
     </tr>
 }
     
@@ -31,13 +31,14 @@
     $(document).ready(function () {
         $(".btn").click(function () {
             var id = this.id;
+            deleteFunction(id);
         });
     });
 
-    function deleteFunction() {
+    function deleteFunction(id) {
         $.ajax({
             type: 'GET',
-            url: 'Cart/DeleteItem?id='+id+'',
+            url: 'DeleteItem?id='+id,
             dataType: 'json',
             contentType: 'application/json'
             
