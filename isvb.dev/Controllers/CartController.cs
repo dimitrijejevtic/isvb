@@ -58,7 +58,16 @@ namespace isvb.dev.Controllers
 
         public async Task<string> DeleteItem(int id)
         {
-            throw new NotImplementedException();
+            var myUser = db.Users.FirstOrDefault(x => x.Email == User.Identity.Name);
+            var cartItems = myUser.Cart.CartItems;
+            foreach (var item in cartItems)
+            {
+                if (item.CartItemId == id) db.CartItems.Remove(item);
+            }
+
+            db.SaveChanges();
+            return "Item deleted";
+
         }
 
         protected override void Dispose(bool disposing)
