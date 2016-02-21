@@ -6,7 +6,8 @@
     @Html.AntiForgeryToken()
 
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Cart","MyCart","Cart", new {onload= "doAjax()" }):<span class="myCart"></span></li>
+        <li>@Html.ActionLink("Cart","MyCart","Cart")</li>
+        <li onload="doAjax()"><a href="#" class="myCart"></a></li>
         @if (User.IsInRole("Administrator")||User.IsInRole("Owner"))
         {
         <li>
