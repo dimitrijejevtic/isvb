@@ -8,10 +8,11 @@ namespace isvb.dev.Controllers
 {
     public class HomeController : Controller
     {
+        private EFModelContainer db = new EFModelContainer();
         public ActionResult Index()
         {
-            
-            return View();
+            var posts = db.Posts.Take(5).ToList();
+            return View(posts);
         }
 
         public ActionResult About()
