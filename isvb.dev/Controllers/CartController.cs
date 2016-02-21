@@ -52,8 +52,8 @@ namespace isvb.dev.Controllers
         public async Task<string> UpdateItem(int id, int quant)
         {
             var user = db.Users.FirstOrDefault(x => x.Email == User.Identity.Name);
-            var tempCartItem = user.Cart.CartItems.FirstOrDefault(x => x.Product.ProductId == id);
-            tempCartItem.Quantity = quant;
+            var tempCartItemS = user.Cart.CartItems.FirstOrDefault(x => x.Product.ProductId == id);
+            tempCartItemS.Quantity = quant;
             db.SaveChanges();
             return "Product updated!!";
           
@@ -72,6 +72,13 @@ namespace isvb.dev.Controllers
             db.SaveChanges();
             return "Item deleted";
 
+        }
+        public async Task<int> CountRows() {
+            var user = db.Users.FirstOrDefault(x => x.Email == User.Identity.Name);
+            var cartItems = user.Cart.CartItems.ToList();
+            var count = cartItems.Count;
+
+            return count;
         }
 
         protected override void Dispose(bool disposing)
