@@ -260,6 +260,10 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Img\bilb.png" />
+    <Content Include="Content\Img\cimg2.jpg" />
+    <Content Include="Content\Img\cimg3.jpg" />
+    <Content Include="Content\Img\cimg4.png" />
+    <Content Include="Content\Img\cimg5.jpg" />
     <Content Include="EFModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>EFModel.Context.cs</LastGenOutput>
@@ -289,6 +293,7 @@
     <Content Include="Scripts\cartJS.js" />
     <Content Include="Scripts\countrows.js" />
     <Content Include="Scripts\dashboard.js" />
+    <Content Include="Scripts\doAjax.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

@@ -26,7 +26,7 @@ namespace isvb.dev
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
-            bundles.Add(new ScriptBundle("~/bundles/dashboard").Include(
+            bundles.Add(new ScriptBundle("~/bundles/dashboard.js").Include(
                      "~/Scripts/dashboard.js"));
             bundles.Add(new ScriptBundle("~/bundles/cartJs").Include(
                     "~/Scripts/cartJS.js"));
@@ -34,6 +34,8 @@ namespace isvb.dev
                     "~/Scripts/mycart.js"));
             bundles.Add(new ScriptBundle("~/bundles/countrows.js").Include(
                     "~/Scripts/countrows.js"));
+            bundles.Add(new ScriptBundle("~/bundles/doajax").Include(
+                    "~/Scripts/doAjax.js"));
         }
     }
 }
