@@ -6,7 +6,7 @@
     @Html.AntiForgeryToken()
 
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Cart","MyCart","Cart")</li>
+        <li>@Html.ActionLink("Cart","MyCart","Cart", new {onload= "doAjax()" }):<span class="myCart"></span></li>
         @if (User.IsInRole("Administrator")||User.IsInRole("Owner"))
         {
         <li>
@@ -27,3 +27,4 @@ else
         <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }
+@Scripts.Render("~/bundles/countrows.js")
