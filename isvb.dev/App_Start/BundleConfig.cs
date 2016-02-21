@@ -32,6 +32,8 @@ namespace isvb.dev
                     "~/Scripts/cartJS.js"));
             bundles.Add(new ScriptBundle("~/bundles/mycart.js").Include(
                     "~/Scripts/mycart.js"));
+            bundles.Add(new ScriptBundle("~/bundles/countrows.js").Include(
+                    "~/Scripts/countrows.js"));
         }
     }
 }

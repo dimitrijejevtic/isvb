@@ -285,6 +285,7 @@
     <Content Include="Areas\DashboardAPI\Views\web.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\cartJS.js" />
+    <Content Include="Scripts\countrows.js" />
     <Content Include="Scripts\dashboard.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
