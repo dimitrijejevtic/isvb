@@ -2,10 +2,10 @@
 function doAjax() {
     $.ajax({
         type: 'POST',
-        url: 'CountRows',
+        url: 'Cart/CountRows',
         dataType: 'json',
         success: function (data) {
-            $('#hidden').val(data);
+            $(".myCart").val(data);
         },
         complete: function (data) {
 
