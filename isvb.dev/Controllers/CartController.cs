@@ -73,6 +73,13 @@ namespace isvb.dev.Controllers
             return "Item deleted";
 
         }
+        public async Task<int> CountRows() {
+            var user = db.Users.FirstOrDefault(x => x.Email == User.Identity.Name);
+            var cartItems = user.Cart.CartItems.ToList();
+            var count = cartItems.Count;
+
+            return count;
+        }
 
         protected override void Dispose(bool disposing)
         {
