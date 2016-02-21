@@ -7,9 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using isvb.dev;
+using isvb.dev.Models;
 
 namespace isvb.dev.Controllers
 {
+    [APIAuthorize(Roles ="Administrator, Owner")]
     public class PostsController : Controller
     {
         private EFModelContainer db = new EFModelContainer();
