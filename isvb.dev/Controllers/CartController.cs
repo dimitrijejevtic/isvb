@@ -74,7 +74,15 @@ namespace isvb.dev.Controllers
 
         }
         public async Task<int> CountRows() {
-            var user = db.Users.FirstOrDefault(x => x.Email == User.Identity.Name);
+            User user= new User();
+            if(db.Users.FirstOrDefault(x => x.Email == User.Identity.Name)!=null)
+            {
+                user = db.Users.FirstOrDefault(x => x.Email == User.Identity.Name);
+            }
+            else
+            {
+                return 0;
+            }            
             var cartItems = user.Cart.CartItems.ToList();
             var count = cartItems.Count;
 
